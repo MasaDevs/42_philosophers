@@ -1,14 +1,39 @@
 #include "../includes/philo.h"
 
-int main(int argc, char *argv[])
-{
-	int	num_of_people;
-	int	*philosophers;
-	(void) argc;
+void	*calc(void	*philos);
 
-	num_of_people = atoi(argv[1]);
-	philosophers = malloc(sizeof(int) * num_of_people);
-	if(!philosophers)
-		return (1);
+#define num_of_philos 10
+
+int main(void)
+{
+	pthread_t	thread[num_of_philos];
+	int			fork[num_of_philos] = {1, 1, 1, 1 ,1, 1, 1, 1, 1, 1};
+	t_philos	philos[num_of_philos];
+	int		i;
+
+	
+	i = 0;
+	while (i < num_of_philos)
+	{
+		philos[i].forks = fork;
+		philos[i].philos_id = i;
+		philos[i].philos_len = num_of_philos;
+		i++;
+	}
+	i = 0;
+	while (i < num_of_philos)
+	{
+		pthread_create(&thread[i], NULL, &calc, (void *)&philos[i]);
+		i++;
+	}	
 	return 0;
+}
+
+void	*calc(void	*philos)
+{
+	t_philos	*philo;
+
+	philo = (t_philos *)philos;
+	printf("%d", philo->philos_id);
+	return (NULL);
 }

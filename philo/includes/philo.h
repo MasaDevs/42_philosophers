@@ -3,10 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+
 typedef struct s_philos
 {
-	pthread_t	thread;
-	int			fork;
-	
-}t_philos;
+	int	*forks;
+	int philos_id;
+	int philos_len;
+}	t_philos;
 #endif
