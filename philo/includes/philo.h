@@ -6,8 +6,9 @@
 
 typedef struct s_philos
 {
-	int	*forks;
-	int philos_id;
-	int philos_len;
+	int				*forks;
+	int				philos_id;
+	int				philos_len;
+	pthread_mutex_t	mutex;
 }	t_philos;
 #endif

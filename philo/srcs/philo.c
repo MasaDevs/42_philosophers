@@ -9,7 +9,7 @@ int main(void)
 	pthread_t	thread[num_of_philos];
 	int			fork[num_of_philos] = {1, 1, 1, 1 ,1, 1, 1, 1, 1, 1};
 	t_philos	philos[num_of_philos];
-	int		i;
+	int			i;
 
 	
 	i = 0;
@@ -23,9 +23,12 @@ int main(void)
 	i = 0;
 	while (i < num_of_philos)
 	{
-		pthread_create(&thread[i], NULL, &calc, (void *)&philos[i]);
+		pthread_create(&thread[i], NULL, calc, (void *)&philos[i]);
 		i++;
-	}	
+	}
+	while (1)
+		;
+	
 	return 0;
 }
 
@@ -34,6 +37,6 @@ void	*calc(void	*philos)
 	t_philos	*philo;
 
 	philo = (t_philos *)philos;
-	printf("%d", philo->philos_id);
+	printf("%d\n", philo->philos_id);
 	return (NULL);
 }
