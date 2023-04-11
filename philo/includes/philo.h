@@ -10,9 +10,7 @@ typedef struct s_philos
 	int				philos_id;
 	int				philos_len;
 	int				num_of_eating;
-	int				left_hand;
-	int				right_hand;
-	int				*forks;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*left_hand;
+	pthread_mutex_t	*right_hand;
 }	t_philos;
 #endif
