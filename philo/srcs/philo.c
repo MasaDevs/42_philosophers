@@ -49,9 +49,8 @@ int	main(void)
 		i++;
 	}
 	while (1)
-		;
-		//if(monitor(philos))
-			//break;
+		if(monitor(philos))
+			break;
 
 	//dest mutex
 	i = 0;
@@ -141,6 +140,10 @@ int	monitor(t_philos *philo)
 	gettimeofday(&tp, NULL);
 	while(i < num_of_philos)
 	{
+		while(pthread_mutex_lock(philo[i].right_hand) != 0)
+			;
+		while(pthread_mutex_lock(philo[i].left_hand) != 0)
+			;
 		if (!(philo[i].dead))
 			flag = 0;
 		if(tp.tv_usec - (philo[i].tp).tv_usec > time_to_die && !(philo[i].dead))
@@ -148,6 +151,8 @@ int	monitor(t_philos *philo)
 			print_philos(&(philo[i]), "is dead");
 			philo[i].dead = 1;
 		}
+		pthread_mutex_unlock(philo[i].left_hand);
+		pthread_mutex_unlock(philo[i].right_hand);
 		i++;
 	}
 	if (flag)
