@@ -4,6 +4,8 @@ void	even_philo_meal(t_philos *philo);
 int	time_to_meal(t_philos *philo);
 
 void	*calc(void *philos);
+void	print_philos(t_philos *philo, char *str);
+int	monitor(t_philos *philo);
 
 #define num_of_philos 5
 #define time_to_die 1000
@@ -13,7 +15,7 @@ void	*calc(void *philos);
 
 int	main(void)
 {
-	pthread_t		thread[num_of_philos];
+	pthread_t		thread[num_of_philos + 1];
 	t_philos		philos[num_of_philos];
 	pthread_mutex_t	mutex[num_of_philos];
 	int				i;
@@ -33,6 +35,7 @@ int	main(void)
 		philos[i].philos_id = i;
 		philos[i].philos_len = num_of_philos;
 		philos[i].num_of_eating = number_of_times_each_philosopher_must_eat;
+		philos[i].dead = 0;
 		philos[i].right_hand = &(mutex[i]);
 		philos[i].left_hand = &(mutex[(i + 1) % num_of_philos]);
 		i++;
@@ -47,6 +50,9 @@ int	main(void)
 	}
 	while (1)
 		;
+		//if(monitor(philos))
+			//break;
+
 	//dest mutex
 	i = 0;
 	while (i < num_of_philos)
@@ -76,19 +82,24 @@ void	odd_philo_meal(t_philos *philo)
 	i = 0;
 	while (i < philo->num_of_eating)
 	{
+		if (philo->dead)
+			return ;
 		while (pthread_mutex_lock(philo->right_hand) != 0)
 			;
-		printf("philo %d thinking\n", philo->philos_id);
+		print_philos(philo, "has taken fork");
 		while(pthread_mutex_lock(philo->left_hand) != 0)
 			;
-		printf("philo %d eating\n", philo->philos_id);
+		print_philos(philo, "eating");
 		usleep(time_to_eat);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
-		printf("philo %d sleeping\n", philo->philos_id);
+		print_philos(philo, "is sleeping");
 		usleep(time_to_sleep);
+		print_philos(philo, "is thinking");
 		i++;
 	}
+	print_philos(philo, "is dead");
+	philo->dead = 1;
 }
 
 void	even_philo_meal(t_philos *philo)
@@ -98,17 +109,60 @@ void	even_philo_meal(t_philos *philo)
 	i = 0;
 	while (i < philo->num_of_eating)
 	{
+		if (philo->dead)
+			return ;
 		while (pthread_mutex_lock(philo->left_hand) != 0)
 			;
-		printf("philo %d thinking\n", philo->philos_id);
+		print_philos(philo, "has taken fork");
 		while(pthread_mutex_lock(philo->right_hand) != 0)
 			;
-		printf("philo %d eating\n", philo->philos_id);
+		print_philos(philo, "is eating");
 		usleep(time_to_eat);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
-		printf("philo %d sleeping\n", philo->philos_id);
+		print_philos(philo, "is sleeping");
 		usleep(time_to_sleep);
+		print_philos(philo, "is thinking");
 		i++;
 	}
+	print_philos(philo, "is dead");
+	philo->dead = 1;
+}
+
+int	monitor(t_philos *philo)
+{
+	int				len;
+	int				i;
+	int				flag;
+	struct timeval	tp;
+
+	i = 0;
+	flag = 1;
+	gettimeofday(&tp, NULL);
+	while(i < num_of_philos)
+	{
+		if (!(philo[i].dead))
+			flag = 0;
+		if(tp.tv_usec - (philo[i].tp).tv_usec > time_to_die && !(philo[i].dead))
+		{
+			print_philos(&(philo[i]), "is dead");
+			philo[i].dead = 1;
+		}
+		i++;
+	}
+	if (flag)
+		return (1);
+	return (0);
+}
+
+void	print_philos(t_philos *philo, char *str)
+{
+	struct timeval	tp;
+
+	if(philo->dead)
+		return ;
+	gettimeofday(&tp, NULL);
+	printf("%d %d %s\n", tp.tv_usec, philo->philos_id, str);
+	if(!strcmp(str, "is eating"))
+		memcpy(&(philo->tp), &tp, sizeof(tp));
 }
