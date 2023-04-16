@@ -8,10 +8,10 @@ void	print_philos(t_philos *philo, char *str);
 int	monitor(t_philos *philo);
 
 #define num_of_philos 5
-#define time_to_die 400
-#define time_to_eat 100
-#define time_to_sleep 100
-#define number_of_times_each_philosopher_must_eat 2
+#define time_to_die 800
+#define time_to_eat 200
+#define time_to_sleep 200
+#define number_of_times_each_philosopher_must_eat 100
 
 int	main(void)
 {
