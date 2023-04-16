@@ -8,7 +8,7 @@ void	print_philos(t_philos *philo, char *str);
 int	monitor(t_philos *philo);
 
 #define num_of_philos 5
-#define time_to_die 1000
+#define time_to_die 400
 #define time_to_eat 100
 #define time_to_sleep 100
 #define number_of_times_each_philosopher_must_eat 2
@@ -35,6 +35,8 @@ int	main(void)
 		philos[i].philos_id = i;
 		philos[i].philos_len = num_of_philos;
 		philos[i].num_of_eating = number_of_times_each_philosopher_must_eat;
+		pthread_mutex_init(&(philos[i].status), NULL);
+		gettimeofday(&(philos[i].tp), NULL);
 		philos[i].dead = 0;
 		philos[i].right_hand = &(mutex[i]);
 		philos[i].left_hand = &(mutex[(i + 1) % num_of_philos]);
@@ -56,6 +58,7 @@ int	main(void)
 	i = 0;
 	while (i < num_of_philos)
 	{
+		pthread_join(thread[i], NULL);
 		pthread_mutex_destroy(&(mutex[i]));
 		i++;
 	}
@@ -67,7 +70,7 @@ void	*calc(void *philos)
 	t_philos	*philo;
 
 	philo = (t_philos *)philos;
-	if (philo->philos_id % 2)
+	if ((philo->philos_id) % 2)
 		odd_philo_meal(philo);
 	else
 		even_philo_meal(philo);
@@ -81,14 +84,15 @@ void	odd_philo_meal(t_philos *philo)
 	i = 0;
 	while (i < philo->num_of_eating)
 	{
+		//printf("ok %d\n", philo->philos_id);
 		if (philo->dead)
 			return ;
 		while (pthread_mutex_lock(philo->right_hand) != 0)
 			;
-		print_philos(philo, "has taken fork");
+		print_philos(philo, "has taken a fork");
 		while(pthread_mutex_lock(philo->left_hand) != 0)
 			;
-		print_philos(philo, "eating");
+		print_philos(philo, "is eating");
 		usleep(time_to_eat);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
@@ -97,7 +101,7 @@ void	odd_philo_meal(t_philos *philo)
 		print_philos(philo, "is thinking");
 		i++;
 	}
-	print_philos(philo, "is dead");
+	print_philos(philo, "died");
 	philo->dead = 1;
 }
 
@@ -112,7 +116,7 @@ void	even_philo_meal(t_philos *philo)
 			return ;
 		while (pthread_mutex_lock(philo->left_hand) != 0)
 			;
-		print_philos(philo, "has taken fork");
+		print_philos(philo, "has taken a fork");
 		while(pthread_mutex_lock(philo->right_hand) != 0)
 			;
 		print_philos(philo, "is eating");
@@ -124,7 +128,7 @@ void	even_philo_meal(t_philos *philo)
 		print_philos(philo, "is thinking");
 		i++;
 	}
-	print_philos(philo, "is dead");
+	print_philos(philo, "died");
 	philo->dead = 1;
 }
 
@@ -140,19 +144,16 @@ int	monitor(t_philos *philo)
 	gettimeofday(&tp, NULL);
 	while(i < num_of_philos)
 	{
-		while(pthread_mutex_lock(philo[i].right_hand) != 0)
-			;
-		while(pthread_mutex_lock(philo[i].left_hand) != 0)
-			;
 		if (!(philo[i].dead))
 			flag = 0;
+		if(pthread_mutex_lock(&(philo[i].status)) != 0)
+			continue;
 		if(tp.tv_usec - (philo[i].tp).tv_usec > time_to_die && !(philo[i].dead))
 		{
-			print_philos(&(philo[i]), "is dead");
+			print_philos(&(philo[i]), "died");
 			philo[i].dead = 1;
 		}
-		pthread_mutex_unlock(philo[i].left_hand);
-		pthread_mutex_unlock(philo[i].right_hand);
+		pthread_mutex_unlock(&(philo[i].status));
 		i++;
 	}
 	if (flag)
@@ -166,8 +167,14 @@ void	print_philos(t_philos *philo, char *str)
 
 	if(philo->dead)
 		return ;
+	//if (pthread_mutex_lock(&(philo->status)) != 0)
+	//	return ;
 	gettimeofday(&tp, NULL);
 	printf("%d %d %s\n", tp.tv_usec, philo->philos_id, str);
 	if(!strcmp(str, "is eating"))
+	{
+		pthread_mutex_lock(&(philo->status));
 		memcpy(&(philo->tp), &tp, sizeof(tp));
+		pthread_mutex_unlock(&(philo->status));
+	}
 }

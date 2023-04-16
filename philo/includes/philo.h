@@ -12,8 +12,9 @@ typedef struct s_philos
 	int				philos_id;
 	int				philos_len;
 	int				num_of_eating;
-	int				dead;
 	struct timeval	tp;
+	int				dead;
+	pthread_mutex_t	status;
 	pthread_mutex_t	*left_hand;
 	pthread_mutex_t	*right_hand;
 }	t_philos;
