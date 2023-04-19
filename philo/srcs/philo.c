@@ -7,11 +7,11 @@ void	*calc(void *philos);
 void	print_philos(t_philos *philo, char *str);
 int	monitor(t_philos *philo);
 
-#define num_of_philos 4
-#define time_to_die 400
+#define num_of_philos 5
+#define time_to_die 800
 #define time_to_eat 200
 #define time_to_sleep 200
-#define number_of_times_each_philosopher_must_eat 10
+#define number_of_times_each_philosopher_must_eat 7
 
 int	main(void)
 {
