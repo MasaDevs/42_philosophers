@@ -1,0 +1,113 @@
+==================
+WARNING: ThreadSanitizer: data race (pid=11644)
+  Write of size 4 at 0x7ffee78a4560 by main thread (mutexes: write M22):
+    #0 monitor <null> (a.out:x86_64+0x1000018ea)
+    #1 main <null> (a.out:x86_64+0x100001611)
+
+  Previous read of size 4 at 0x7ffee78a4560 by thread T5 (mutexes: write M13, write M17):
+    #0 print_philos <null> (a.out:x86_64+0x100001d82)
+    #1 even_philo_meal <null> (a.out:x86_64+0x100001c5e)
+    #2 calc <null> (a.out:x86_64+0x10000177a)
+
+  Location is stack of main thread.
+
+  Mutex M22 (0x7ffee78a4568) created at:
+    #0 pthread_mutex_init <null> (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null> (a.out:x86_64+0x100001435)
+
+  Mutex M13 (0x7ffee78a4220) created at:
+    #0 pthread_mutex_init <null> (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null> (a.out:x86_64+0x1000012fd)
+
+  Mutex M17 (0x7ffee78a4320) created at:
+    #0 pthread_mutex_init <null> (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null> (a.out:x86_64+0x1000012fd)
+
+  Thread T5 (tid=76720, running) created by main thread at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2a99d)
+    #1 main <null> (a.out:x86_64+0x1000015c8)
+
+SUMMARY: ThreadSanitizer: data race (a.out:x86_64+0x1000018ea) in monitor
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11644)
+  Write of size 4 at 0x7ffee78a43f8 by main thread (mutexes: write M19):
+    #0 monitor <null> (a.out:x86_64+0x1000018ea)
+    #1 main <null> (a.out:x86_64+0x100001611)
+
+  Previous read of size 4 at 0x7ffee78a43f8 by thread T2:
+    #0 odd_philo_meal <null> (a.out:x86_64+0x1000019d2)
+    #1 calc <null> (a.out:x86_64+0x10000176c)
+
+  Location is stack of main thread.
+
+  Mutex M19 (0x7ffee78a4400) created at:
+    #0 pthread_mutex_init <null> (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null> (a.out:x86_64+0x100001435)
+
+  Thread T2 (tid=76717, running) created by main thread at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2a99d)
+    #1 main <null> (a.out:x86_64+0x1000015c8)
+
+SUMMARY: ThreadSanitizer: data race (a.out:x86_64+0x1000018ea) in monitor
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11644)
+  Read of size 4 at 0x7ffee78a4470 by thread T3:
+    #0 print_philos <null>:2137008 (a.out:x86_64+0x100001d82)
+    #1 even_philo_meal <null>:2137008 (a.out:x86_64+0x100001ce6)
+    #2 calc <null>:2137008 (a.out:x86_64+0x10000177a)
+
+  Previous write of size 4 at 0x7ffee78a4470 by main thread (mutexes: write M20):
+    #0 monitor <null>:2137008 (a.out:x86_64+0x1000018ea)
+    #1 main <null>:2137008 (a.out:x86_64+0x100001611)
+
+  As if synchronized via sleep:
+    #0 usleep <null>:2137136 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2953e)
+    #1 even_philo_meal <null>:2137136 (a.out:x86_64+0x100001cd3)
+    #2 calc <null>:2137136 (a.out:x86_64+0x10000177a)
+
+  Location is stack of main thread.
+
+  Mutex M20 (0x7ffee78a4478) created at:
+    #0 pthread_mutex_init <null>:2136896 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null>:2136896 (a.out:x86_64+0x100001435)
+
+  Thread T3 (tid=76718, running) created by main thread at:
+    #0 pthread_create <null>:2137088 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2a99d)
+    #1 main <null>:2137088 (a.out:x86_64+0x1000015c8)
+
+SUMMARY: ThreadSanitizer: data race (a.out:x86_64+0x100001d82) in print_philos
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11644)
+  Read of size 4 at 0x7ffee78a44e8 by thread T4 (mutexes: write M16, write M17):
+    #0 print_philos <null>:2673584 (a.out:x86_64+0x100001d82)
+    #1 odd_philo_meal <null>:2673584 (a.out:x86_64+0x100001a6e)
+    #2 calc <null>:2673584 (a.out:x86_64+0x10000176c)
+
+  Previous write of size 4 at 0x7ffee78a44e8 by main thread (mutexes: write M21):
+    #0 monitor <null>:2673584 (a.out:x86_64+0x1000018ea)
+    #1 main <null>:2673584 (a.out:x86_64+0x100001611)
+
+  Location is stack of main thread.
+
+  Mutex M16 (0x7ffee78a42e0) created at:
+    #0 pthread_mutex_init <null>:2673472 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null>:2673472 (a.out:x86_64+0x1000012fd)
+
+  Mutex M17 (0x7ffee78a4320) created at:
+    #0 pthread_mutex_init <null>:2673472 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null>:2673472 (a.out:x86_64+0x1000012fd)
+
+  Mutex M21 (0x7ffee78a44f0) created at:
+    #0 pthread_mutex_init <null>:2673472 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2b973)
+    #1 main <null>:2673472 (a.out:x86_64+0x100001435)
+
+  Thread T4 (tid=76719, running) created by main thread at:
+    #0 pthread_create <null>:2673664 (libclang_rt.tsan_osx_dynamic.dylib:x86_64h+0x2a99d)
+    #1 main <null>:2673664 (a.out:x86_64+0x1000015c8)
+
+SUMMARY: ThreadSanitizer: data race (a.out:x86_64+0x100001d82) in print_philos
+==================
+ThreadSanitizer: reported 4 warnings
