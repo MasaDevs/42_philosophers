@@ -11,7 +11,8 @@ void	set_philo_dead(t_philos *philo);
 int	is_philo_dead(t_philos *philo);
 void change_last_meal(t_philos *philo);
 void	print_philos(t_philos *philo, char *str);
-void	destructor(const t_info info, pthread_t *thread, t_philos *philos, pthread_mutex_t *mutex);
+int monitor(t_info info, t_philos *philos);
+void	destruct(const t_info info, pthread_t *thread, t_philos *philos, pthread_mutex_t *mutex);
 void	*alloc(void *philos);
 
 int	main(int argc, char *argv[])
@@ -27,11 +28,14 @@ int	main(int argc, char *argv[])
 	mutex = make_mutex(info);
 	philos = make_philos(info, mutex);
 	thread = make_thread(info, philos);
-	destructor(info, thread, philos, mutex);
+	while(1)
+		if(monitor(info, philos))
+			break;
+	destruct(info, thread, philos, mutex);
 	free(thread);
 	free(philos);
 	free(mutex);
-	
+	return (1);
 }
 
 //const might be better choice.
@@ -235,12 +239,37 @@ void	print_philos(t_philos *philo, char *str)
 	pthread_mutex_unlock(&(philo->status));
 }
 
-int	monitor(t_philos *philo)
+int monitor(t_info info, t_philos *philos)
 {
+	struct timeval	tp;
+	int flag;
+	int	i;
 
+	flag = 0;
+	i = 0;
+	while(i < info.num_of_philos)
+	{
+		while(pthread_mutex_lock(&(philos[i].status)) != 0)
+			;
+		gettimeofday(&tp, NULL);
+		if (philos[i].dead)
+			flag = 1;
+		if((tp.tv_sec * 1000 + tp.tv_usec / 1000) - (philos[i].last_meal.tv_sec * 1000 + (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die && !(philos[i].dead))
+		{
+			philos[i].dead = 1;
+			flag = 1;
+		}
+		pthread_mutex_unlock(&(philos[i].status));
+		if(flag)
+			break;
+		i++;
+	}
+	if(flag)
+		print_philos(&(philos[i]), "dieds");
+	return (flag);
 }
 
-void	destructor(const t_info info, pthread_t *thread, t_philos *philos, pthread_mutex_t *mutex)
+void	destruct(const t_info info, pthread_t *thread, t_philos *philos, pthread_mutex_t *mutex)
 {
 	int	i;
 
