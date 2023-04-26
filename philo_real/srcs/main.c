@@ -31,6 +31,7 @@ int	main(int argc, char *argv[])
 	while(1)
 		if(monitor(info, philos))
 			break;
+	
 	destruct(info, thread, philos, mutex);
 	free(thread);
 	free(philos);
@@ -137,7 +138,13 @@ void	odd_philo_meal(t_philos *philo)
 			;
 		print_philos(philo, "has taken a fork");
 		while(pthread_mutex_lock(philo->left_hand) != 0)
-			;
+		{
+			if (is_philo_dead(philo))
+			{
+				pthread_mutex_unlock(philo->right_hand);
+				return ;
+			}
+		}
 		change_last_meal(philo);
 		print_philos(philo, "is eating");
 		usleep(philo->time_to_eat * 1000);
@@ -167,7 +174,13 @@ void	even_philo_meal(t_philos *philo)
 			;
 		print_philos(philo, "has taken a fork");
 		while(pthread_mutex_lock(philo->right_hand) != 0)
-			;
+		{
+			if (is_philo_dead(philo))
+			{
+				pthread_mutex_unlock(philo->left_hand);
+				return ;
+			}
+		}
 		change_last_meal(philo);
 		print_philos(philo, "is eating");
 		usleep(philo->time_to_eat * 1000);
@@ -231,9 +244,12 @@ void	print_philos(t_philos *philo, char *str)
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
 	if(philo->dead)
+	{
+		pthread_mutex_unlock(&(philo->status));
 		return ;
+	}
 	gettimeofday(&tp, NULL);
-	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo->philos_id, str);
+	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo->philos_id + 1, str);
 	if (!strcmp(str, "is eating"))
 		gettimeofday(&(philo->last_meal), NULL);
 	pthread_mutex_unlock(&(philo->status));
@@ -249,12 +265,12 @@ int monitor(t_info info, t_philos *philos)
 	i = 0;
 	while(i < info.num_of_philos)
 	{
-		while(pthread_mutex_lock(&(philos[i].status)) != 0)
+		while (pthread_mutex_lock(&(philos[i].status)) != 0)
 			;
 		gettimeofday(&tp, NULL);
 		if (philos[i].dead)
 			flag = 1;
-		if((tp.tv_sec * 1000 + tp.tv_usec / 1000) - (philos[i].last_meal.tv_sec * 1000 + (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die && !(philos[i].dead))
+		if((tp.tv_sec * 1000 + tp.tv_usec / 1000) - (philos[i].last_meal.tv_sec * 1000 + (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die)
 		{
 			philos[i].dead = 1;
 			flag = 1;
@@ -265,7 +281,10 @@ int monitor(t_info info, t_philos *philos)
 		i++;
 	}
 	if(flag)
-		print_philos(&(philos[i]), "dieds");
+	{
+		printf("%d\n", i);
+		print_philos(&(philos[i]), "died");
+	}
 	return (flag);
 }
 
@@ -276,7 +295,7 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos, pthread_mu
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		pthread_join(thread[i], NULL);
+		pthread_detach(thread[i]);
 		i++;
 	}
 	i = 0;
