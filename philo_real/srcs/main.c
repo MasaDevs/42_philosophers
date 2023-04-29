@@ -148,7 +148,7 @@ void	odd_philo_meal(t_philos *philo)
 		change_last_meal(philo);
 		print_philos(philo, "is eating");
 		usleep(philo->time_to_eat * 1000);
-		change_last_meal(philo);
+		//change_last_meal(philo);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(philo, "is sleeping");
@@ -184,7 +184,7 @@ void	even_philo_meal(t_philos *philo)
 		change_last_meal(philo);
 		print_philos(philo, "is eating");
 		usleep(philo->time_to_eat * 1000);
-		change_last_meal(philo);
+		//change_last_meal(philo);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(philo, "is sleeping");
@@ -243,11 +243,6 @@ void	print_philos(t_philos *philo, char *str)
 
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
-	if(philo->dead)
-	{
-		pthread_mutex_unlock(&(philo->status));
-		return ;
-	}
 	gettimeofday(&tp, NULL);
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo->philos_id + 1, str);
 	if (!strcmp(str, "is eating"))
@@ -270,7 +265,7 @@ int monitor(t_info info, t_philos *philos)
 		gettimeofday(&tp, NULL);
 		if (philos[i].dead)
 			flag = 1;
-		if((tp.tv_sec * 1000 + tp.tv_usec / 1000) - (philos[i].last_meal.tv_sec * 1000 + (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die)
+		if(((tp.tv_sec) * 1000 + tp.tv_usec / 1000) - ((philos[i].last_meal.tv_sec) * 1000 + (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die)
 		{
 			philos[i].dead = 1;
 			flag = 1;
@@ -281,10 +276,7 @@ int monitor(t_info info, t_philos *philos)
 		i++;
 	}
 	if(flag)
-	{
-		printf("%d\n", i);
 		print_philos(&(philos[i]), "died");
-	}
 	return (flag);
 }
 
@@ -295,7 +287,7 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos, pthread_mu
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		pthread_detach(thread[i]);
+		pthread_join(thread[i], NULL);
 		i++;
 	}
 	i = 0;
@@ -306,13 +298,13 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos, pthread_mu
 		i++;
 	}
 }
-
+/*
 #include <libc.h>
 __attribute__((destructor))
 static void destructor() {
     system("leaks -q a.out");
 }
-
+*/
 //malloc
 //mutex
 //thread
