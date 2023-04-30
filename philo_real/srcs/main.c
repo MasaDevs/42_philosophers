@@ -243,6 +243,11 @@ void	print_philos(t_philos *philo, char *str)
 
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
+	if(philo->dead)
+	{
+		pthread_mutex_unlock(&(philo->status));
+		return ;
+	}
 	gettimeofday(&tp, NULL);
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo->philos_id + 1, str);
 	if (!strcmp(str, "is eating"))
@@ -266,17 +271,22 @@ int monitor(t_info info, t_philos *philos)
 		if (philos[i].dead)
 			flag = 1;
 		if(((tp.tv_sec) * 1000 + tp.tv_usec / 1000) - ((philos[i].last_meal.tv_sec) * 1000 + (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die)
-		{
-			philos[i].dead = 1;
 			flag = 1;
-		}
 		pthread_mutex_unlock(&(philos[i].status));
 		if(flag)
 			break;
 		i++;
 	}
 	if(flag)
+	{
 		print_philos(&(philos[i]), "died");
+		i = 0;
+		while (i < info.num_of_philos)
+		{
+			set_philo_dead(&(philos[i]));
+			i++;
+		}
+	}
 	return (flag);
 }
 
