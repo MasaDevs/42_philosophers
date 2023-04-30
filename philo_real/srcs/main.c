@@ -308,6 +308,7 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos, pthread_mu
 		i++;
 	}
 }
+
 /*
 #include <libc.h>
 __attribute__((destructor))
