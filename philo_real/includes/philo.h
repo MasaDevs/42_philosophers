@@ -16,7 +16,7 @@ typedef struct s_philos
 	int				num_of_eat;
 	struct timeval	last_meal;
 	int				dead;
-	pthread_mutex_t	status;
+	pthread_mutex_t	*status;
 	pthread_mutex_t	*left_hand;
 	pthread_mutex_t	*right_hand;
 }	t_philos;
@@ -37,7 +37,7 @@ pthread_t		*make_thread(t_info info, t_philos *philos);
 void			*alloc(void *philos);
 
 //philos.c
-t_philos    	*make_philos(const t_info info, pthread_mutex_t *mutex);
+t_philos    	*make_philos(const t_info info, pthread_mutex_t *mutex, pthread_mutex_t	*status);
 void			even_philo_meal(t_philos *philo);
 void			odd_philo_meal(t_philos *philo);
 

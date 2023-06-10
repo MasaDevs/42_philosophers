@@ -1,6 +1,6 @@
 #include "../includes/philo.h"
 
-t_philos    *make_philos(const t_info info, pthread_mutex_t *mutex)
+t_philos    *make_philos(const t_info info, pthread_mutex_t *mutex, pthread_mutex_t *status)
 {
 	t_philos	*philos;
 	int			i;
@@ -15,10 +15,10 @@ t_philos    *make_philos(const t_info info, pthread_mutex_t *mutex)
 		philos[i].num_of_philos = info.num_of_philos;
 		philos[i].time_to_eat = info.time_to_eat;
 		philos[i].time_to_sleep = info.time_to_sleep;
+		philos[i].status = status;
 		philos[i].num_of_eat = info.num_of_eat;
 		gettimeofday(&(philos[i].last_meal), NULL);
 		philos[i].dead = 0;
-		pthread_mutex_init(&(philos[i].status), NULL);
 		philos[i].right_hand = &(mutex[i]);
 		philos[i].left_hand = &(mutex[(i + 1) % info.num_of_philos]);
 		i++;
@@ -46,8 +46,8 @@ void	odd_philo_meal(t_philos *philo)
 				return ;
 			}
 		}
-		change_last_meal(philo);
 		print_philos(philo, "is eating");
+		change_last_meal(philo);
 		usleep(philo->time_to_eat * 1000);
 		//change_last_meal(philo);
 		pthread_mutex_unlock(philo->right_hand);
@@ -82,8 +82,8 @@ void	even_philo_meal(t_philos *philo)
 				return ;
 			}
 		}
-		change_last_meal(philo);
 		print_philos(philo, "is eating");
+		change_last_meal(philo);
 		usleep(philo->time_to_eat * 1000);
 		//change_last_meal(philo);
 		pthread_mutex_unlock(philo->right_hand);
