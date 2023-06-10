@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 			break;
 	
 	destruct(info, thread, mutex);
-	pthread_mutex_unlock(&status);
+	//pthread_mutex_unlock(&status);
 	free(thread);
 	free(philos);
 	free(mutex);
@@ -40,8 +40,7 @@ int monitor(t_info info, t_philos *philos)
 	i = 0;
 	while(i < info.num_of_philos)
 	{
-		while (pthread_mutex_lock((philos[i].status)) != 0)
-			;
+		pthread_mutex_lock((philos[i].status));
 		gettimeofday(&tp, NULL);
 		if (philos[i].dead)
 			flag = 1;

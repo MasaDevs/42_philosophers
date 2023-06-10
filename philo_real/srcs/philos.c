@@ -35,7 +35,7 @@ void	odd_philo_meal(t_philos *philo)
 	{
 		if (is_philo_dead(philo))
 			return ;
-		while (pthread_mutex_lock(philo->right_hand) != 0)
+		while(pthread_mutex_lock(philo->right_hand) != 0)
 			;
 		print_philos(philo, "has taken a fork");
 		while(pthread_mutex_lock(philo->left_hand) != 0)
@@ -71,7 +71,7 @@ void	even_philo_meal(t_philos *philo)
 	{
 		if (is_philo_dead(philo))
 			return ;
-		while (pthread_mutex_lock(philo->left_hand) != 0)
+		while(pthread_mutex_lock(philo->left_hand) != 0)
 			;
 		print_philos(philo, "has taken a fork");
 		while(pthread_mutex_lock(philo->right_hand) != 0)
