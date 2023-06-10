@@ -1,6 +1,6 @@
 NAME	=	philo
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread
 SRCS	=	srcs/main.c \
 			srcs/info.c \
 			srcs/operation.c \
@@ -9,7 +9,7 @@ OBJS	=	${SRCS:.c=.o}
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${CFLAGS} -o ${NAME}	${OBJS}
+	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 clean:
 	rm -f ${OBJS}
 fclean: clean
