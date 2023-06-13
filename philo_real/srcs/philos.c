@@ -1,6 +1,6 @@
 #include "../includes/philo.h"
 
-t_philos    *make_philos(const t_info info, pthread_mutex_t *mutex)
+t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex)
 {
 	t_philos	*philos;
 	int			i;
@@ -9,7 +9,7 @@ t_philos    *make_philos(const t_info info, pthread_mutex_t *mutex)
 	philos = malloc(sizeof(t_philos) * info.num_of_philos);
 	if (!philos)
 		return (NULL);
-	while(i < info.num_of_philos)
+	while (i < info.num_of_philos)
 	{
 		philos[i].philos_id = i;
 		philos[i].num_of_philos = info.num_of_philos;
@@ -28,17 +28,17 @@ t_philos    *make_philos(const t_info info, pthread_mutex_t *mutex)
 
 void	odd_philo_meal(t_philos *philo)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while(i < get_num_of_eat(philo) || get_num_of_eat(philo) < 0)
+	while (i < get_num_of_eat(philo) || get_num_of_eat(philo) < 0)
 	{
 		if (is_philo_dead(philo))
 			return ;
 		while (pthread_mutex_lock(philo->right_hand) != 0)
 			;
 		print_philos(philo, "has taken a fork");
-		while(pthread_mutex_lock(philo->left_hand) != 0)
+		while (pthread_mutex_lock(philo->left_hand) != 0)
 		{
 			if (is_philo_dead(philo))
 			{
@@ -62,17 +62,17 @@ void	odd_philo_meal(t_philos *philo)
 
 void	even_philo_meal(t_philos *philo)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while(i < get_num_of_eat(philo) || get_num_of_eat(philo) < 0)
+	while (i < get_num_of_eat(philo) || get_num_of_eat(philo) < 0)
 	{
 		if (is_philo_dead(philo))
 			return ;
 		while (pthread_mutex_lock(philo->left_hand) != 0)
 			;
 		print_philos(philo, "has taken a fork");
-		while(pthread_mutex_lock(philo->right_hand) != 0)
+		while (pthread_mutex_lock(philo->right_hand) != 0)
 		{
 			if (is_philo_dead(philo))
 			{

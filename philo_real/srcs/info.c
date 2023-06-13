@@ -1,6 +1,5 @@
 #include "../includes/philo.h"
 
-
 int	set_info(t_info *info, int argc, char *argv[])
 {
 	info->num_of_philos = atoi(argv[1]);
@@ -18,11 +17,12 @@ pthread_mutex_t	*make_mutex(const t_info info)
 {
 	pthread_mutex_t	*mutex;
 	int				i;
+
 	mutex = malloc(sizeof(pthread_mutex_t) * info.num_of_philos);
 	if (!mutex)
 		return (NULL);
 	i = 0;
-	while(i < info.num_of_philos)
+	while (i < info.num_of_philos)
 	{
 		pthread_mutex_init(&(mutex[i]), NULL);
 		i++;
@@ -45,7 +45,6 @@ pthread_t	*make_thread(t_info info, t_philos *philos)
 		i++;
 	}
 	return (thread);
-	
 }
 
 void	*alloc(void *philos)

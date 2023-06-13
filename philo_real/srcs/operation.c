@@ -2,7 +2,7 @@
 
 int	is_philo_dead(t_philos *philo)
 {
-	int flag;
+	int	flag;
 
 	flag = 0;
 	while (pthread_mutex_lock(&(philo->status)) != 0)
@@ -13,11 +13,11 @@ int	is_philo_dead(t_philos *philo)
 	return (flag);
 }
 
-int get_num_of_eat(t_philos *philo)
+int	get_num_of_eat(t_philos *philo)
 {
-	int num_of_eat;
+	int	num_of_eat;
 
-	while(pthread_mutex_lock(&(philo->status)) != 0)
+	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
 	num_of_eat = philo->num_of_eat;
 	pthread_mutex_unlock(&(philo->status));
@@ -26,13 +26,13 @@ int get_num_of_eat(t_philos *philo)
 
 void	set_philo_dead(t_philos *philo)
 {
-	while(pthread_mutex_lock(&(philo->status)) != 0)
+	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
 	philo->dead = 1;
 	pthread_mutex_unlock(&(philo->status));
 }
 
-void change_last_meal(t_philos *philo)
+void	change_last_meal(t_philos *philo)
 {
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
@@ -43,11 +43,11 @@ void change_last_meal(t_philos *philo)
 void	print_philos(t_philos *philo, char *str)
 {
 	struct timeval	tp;
-	int		philos_id;
+	int				philos_id;
 
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
-	if(philo->dead)
+	if (philo->dead)
 	{
 		pthread_mutex_unlock(&(philo->status));
 		return ;
