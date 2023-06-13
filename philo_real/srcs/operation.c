@@ -43,6 +43,7 @@ void change_last_meal(t_philos *philo)
 void	print_philos(t_philos *philo, char *str)
 {
 	struct timeval	tp;
+	int		philos_id;
 
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
@@ -51,9 +52,8 @@ void	print_philos(t_philos *philo, char *str)
 		pthread_mutex_unlock(&(philo->status));
 		return ;
 	}
-	gettimeofday(&tp, NULL);
-	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo->philos_id + 1, str);
-	if (!strcmp(str, "is eating"))
-		gettimeofday(&(philo->last_meal), NULL);
+	philos_id = philo->philos_id + 1;
 	pthread_mutex_unlock(&(philo->status));
+	gettimeofday(&tp, NULL);
+	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philos_id, str);
 }

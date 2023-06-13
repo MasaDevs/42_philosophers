@@ -46,10 +46,9 @@ void	odd_philo_meal(t_philos *philo)
 				return ;
 			}
 		}
-		change_last_meal(philo);
 		print_philos(philo, "is eating");
+		change_last_meal(philo);
 		usleep(philo->time_to_eat * 1000);
-		//change_last_meal(philo);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(philo, "is sleeping");
@@ -58,7 +57,6 @@ void	odd_philo_meal(t_philos *philo)
 		if (0 < get_num_of_eat(philo))
 			i++;
 	}
-	print_philos(philo, "died");
 	set_philo_dead(philo);
 }
 
@@ -82,10 +80,9 @@ void	even_philo_meal(t_philos *philo)
 				return ;
 			}
 		}
-		change_last_meal(philo);
 		print_philos(philo, "is eating");
+		change_last_meal(philo);
 		usleep(philo->time_to_eat * 1000);
-		//change_last_meal(philo);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(philo, "is sleeping");
@@ -94,6 +91,5 @@ void	even_philo_meal(t_philos *philo)
 		if (0 < get_num_of_eat(philo))
 			i++;
 	}
-	print_philos(philo, "died");
 	set_philo_dead(philo);
 }
