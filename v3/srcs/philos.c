@@ -28,6 +28,21 @@ t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex, bool *someone_d
 	return (philos);
 }
 
+void	xusleep(t_philos philo, int time)
+{
+		struct timeval tp1;
+		struct timeval tp2;
+		
+		gettimeofday(&tp1, NULL);
+		gettimeofday(&tp2, NULL);
+		while((tp2.tv_sec * 1000000 + tp2.tv_usec) - (tp1.tv_sec * 1000000 + tp1.tv_usec) < time)
+		{
+			if(is_philo_dead(philo))
+				break;
+			usleep(10);
+			gettimeofday(&tp2, NULL);
+		}
+}
 void	odd_philo_meal(t_philos *philo)
 {
 	int	i;
@@ -50,11 +65,11 @@ void	odd_philo_meal(t_philos *philo)
 		}
 		print_philos(*philo, "is eating");
 		change_last_meal(philo);
-		usleep(philo->time_to_eat * 1000 - 5000);
+		xusleep(*philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(*philo, "is sleeping");
-		usleep(philo->time_to_sleep * 1000 - 5000);
+		xusleep(*philo, philo->time_to_sleep * 1000);
 		print_philos(*philo, "is thinking");
 		if (0 < get_num_of_eat(*philo))
 			i++;
@@ -84,11 +99,11 @@ void	even_philo_meal(t_philos *philo)
 		}
 		print_philos(*philo, "is eating");
 		change_last_meal(philo);
-		usleep(philo->time_to_eat * 1000 - 5000);
+		xusleep(*philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(*philo, "is sleeping");
-		usleep(philo->time_to_sleep * 1000 - 5000);
+		xusleep(*philo, philo->time_to_sleep * 1000);
 		print_philos(*philo, "is thinking");
 		if (0 < get_num_of_eat(*philo))
 			i++;
