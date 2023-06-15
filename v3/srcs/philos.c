@@ -50,11 +50,11 @@ void	odd_philo_meal(t_philos *philo)
 		}
 		print_philos(*philo, "is eating");
 		change_last_meal(philo);
-		usleep(philo->time_to_eat * 1000);
+		usleep(philo->time_to_eat * 1000 - 5000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(*philo, "is sleeping");
-		usleep(philo->time_to_sleep * 1000);
+		usleep(philo->time_to_sleep * 1000 - 5000);
 		print_philos(*philo, "is thinking");
 		if (0 < get_num_of_eat(*philo))
 			i++;
@@ -84,11 +84,11 @@ void	even_philo_meal(t_philos *philo)
 		}
 		print_philos(*philo, "is eating");
 		change_last_meal(philo);
-		usleep(philo->time_to_eat * 1000);
+		usleep(philo->time_to_eat * 1000 - 5000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(*philo, "is sleeping");
-		usleep(philo->time_to_sleep * 1000);
+		usleep(philo->time_to_sleep * 1000 - 5000);
 		print_philos(*philo, "is thinking");
 		if (0 < get_num_of_eat(*philo))
 			i++;
