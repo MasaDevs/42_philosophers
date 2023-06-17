@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operation.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
+/*   Updated: 2023/06/17 17:15:45 by marai            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 bool	is_philo_dead(t_philos philo)
@@ -10,7 +22,7 @@ bool	is_philo_dead(t_philos philo)
 	if (*(philo.someone_dead))
 		flag = true;
 	pthread_mutex_unlock(philo.dead);
-return (flag);
+	return (flag);
 }
 
 int	get_num_of_eat(t_philos philo)
@@ -46,8 +58,9 @@ void	print_philos(t_philos philo, char *str)
 		;
 	dead = *(philo.someone_dead);
 	pthread_mutex_unlock(philo.dead);
-	if(dead)
+	if (dead)
 		return ;
 	gettimeofday(&tp, NULL);
-	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id + 1, str);
+	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
+			+ 1, str);
 }

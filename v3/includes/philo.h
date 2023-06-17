@@ -1,11 +1,11 @@
 #ifndef PHILO_H
 # define PHILO_H
 # include <pthread.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
-# include <stdbool.h>
 # include <unistd.h>
 
 typedef struct s_philos
@@ -16,7 +16,7 @@ typedef struct s_philos
 	int				time_to_sleep;
 	int				num_of_eat;
 	struct timeval	last_meal;
-	bool			*someone_dead;	
+	bool			*someone_dead;
 	pthread_mutex_t	status;
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*left_hand;
@@ -39,7 +39,8 @@ pthread_t			*make_thread(t_info info, t_philos *philos);
 void				*alloc(void *philos);
 
 //philos.c
-t_philos			*make_philos(const t_info info, pthread_mutex_t *mutex, bool *someone_dead, pthread_mutex_t *dead);
+t_philos			*make_philos(const t_info info, pthread_mutex_t *mutex,
+						bool *someone_dead, pthread_mutex_t *dead);
 void				even_philo_meal(t_philos *philo);
 void				odd_philo_meal(t_philos *philo);
 

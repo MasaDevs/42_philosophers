@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philos.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
+/*   Updated: 2023/06/17 17:15:59 by marai            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex, bool *someone_dead, pthread_mutex_t *dead)
+t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex,
+		bool *someone_dead, pthread_mutex_t *dead)
 {
 	t_philos	*philos;
 	int			i;
@@ -30,18 +43,19 @@ t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex, bool *someone_d
 
 void	xusleep(t_philos philo, int time)
 {
-		struct timeval tp1;
-		struct timeval tp2;
-		
-		gettimeofday(&tp1, NULL);
+	struct timeval	tp1;
+	struct timeval	tp2;
+
+	gettimeofday(&tp1, NULL);
+	gettimeofday(&tp2, NULL);
+	while ((tp2.tv_sec * 1000000 + tp2.tv_usec) - (tp1.tv_sec * 1000000
+			+ tp1.tv_usec) < time)
+	{
+		if (is_philo_dead(philo))
+			break ;
+		usleep(10);
 		gettimeofday(&tp2, NULL);
-		while((tp2.tv_sec * 1000000 + tp2.tv_usec) - (tp1.tv_sec * 1000000 + tp1.tv_usec) < time)
-		{
-			if(is_philo_dead(philo))
-				break;
-			usleep(10);
-			gettimeofday(&tp2, NULL);
-		}
+	}
 }
 void	odd_philo_meal(t_philos *philo)
 {
