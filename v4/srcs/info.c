@@ -6,7 +6,7 @@
 /*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/17 17:16:14 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/18 16:46:40 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	set_info(t_info *info, int argc, char *argv[])
 		info->num_of_eat = atoi(argv[5]);
 	else
 		info->num_of_eat = -1;
+	info->someone_dead = malloc(sizeof(bool));
+	if(info->someone_dead)
+		return (-1);
+	*(info->someone_dead) = false;
 	return (1);
 }
 

@@ -6,20 +6,18 @@
 /*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/17 17:15:59 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/18 16:52:02 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex,
-		bool *someone_dead, pthread_mutex_t *dead)
+t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex, pthread_mutex_t *dead)
 {
 	t_philos	*philos;
 	int			i;
 
 	i = 0;
-	*(someone_dead) = false;
 	philos = malloc(sizeof(t_philos) * info.num_of_philos);
 	if (!philos)
 		return (NULL);
@@ -32,7 +30,7 @@ t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex,
 		philos[i].num_of_eat = info.num_of_eat;
 		gettimeofday(&(philos[i].last_meal), NULL);
 		philos[i].dead = dead;
-		philos[i].someone_dead = someone_dead;
+		philos[i].someone_dead = info.someone_dead;
 		pthread_mutex_init(&(philos[i].status), NULL);
 		philos[i].right_hand = &(mutex[i]);
 		philos[i].left_hand = &(mutex[(i + 1) % info.num_of_philos]);

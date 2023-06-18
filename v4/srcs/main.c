@@ -6,7 +6,7 @@
 /*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/17 17:15:37 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/18 16:50:53 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char *argv[])
 {
 	t_info			info;
 	t_philos		*philos;
-	bool			someone_dead;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*mutex;
 	pthread_t		*thread;
@@ -30,7 +29,7 @@ int	main(int argc, char *argv[])
 	pthread_mutex_init(&dead, NULL);
 	set_info(&info, argc, argv);
 	mutex = make_mutex(info);
-	philos = make_philos(info, mutex, &someone_dead, &dead);
+	philos = make_philos(info, mutex, &dead);
 	thread = make_thread(info, philos);
 	while (1)
 		if (monitor(info, philos))
@@ -41,6 +40,7 @@ int	main(int argc, char *argv[])
 	free(mutex);
 	return (1);
 }
+
 
 int	monitor(t_info info, t_philos *philos)
 {
@@ -90,6 +90,7 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
 		pthread_mutex_destroy(&(philos[i].status));
 		i++;
 	}
+	free(info.someone_dead);
 }
 
 /*

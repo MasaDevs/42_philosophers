@@ -30,6 +30,7 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_eat;
+	bool			*someone_dead;
 }					t_info;
 
 //info.c
@@ -39,8 +40,7 @@ pthread_t			*make_thread(t_info info, t_philos *philos);
 void				*alloc(void *philos);
 
 //philos.c
-t_philos			*make_philos(const t_info info, pthread_mutex_t *mutex,
-						bool *someone_dead, pthread_mutex_t *dead);
+t_philos			*make_philos(const t_info info, pthread_mutex_t *mutex, pthread_mutex_t *dead);
 void				even_philo_meal(t_philos *philo);
 void				odd_philo_meal(t_philos *philo);
 
