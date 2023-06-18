@@ -15,6 +15,7 @@ typedef struct s_philos
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_eat;
+	bool			finished;
 	struct timeval	last_meal;
 	bool			*someone_dead;
 	pthread_mutex_t	status;

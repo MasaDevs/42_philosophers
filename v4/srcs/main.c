@@ -6,7 +6,7 @@
 /*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/18 16:50:53 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/18 16:58:01 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	monitor(t_info info, t_philos *philos)
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		while (pthread_mutex_lock(&(philos[i].status)) != 0)
-			;
+		pthread_mutex_lock(&(philos[i].status));
 		gettimeofday(&tp, NULL);
 		if (((tp.tv_sec) * 1000 + tp.tv_usec / 1000)
 			- ((philos[i].last_meal.tv_sec) * 1000
