@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
+/*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/18 16:58:01 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/19 11:21:57 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,22 @@ int	monitor(t_info info, t_philos *philos)
 	struct timeval	tp;
 	int				flag;
 	int				i;
+	bool			finished;
 
 	flag = 0;
 	i = 0;
+	finished = true;
 	while (i < info.num_of_philos)
 	{
 		pthread_mutex_lock(&(philos[i].status));
+		if(!philos[i].finished)
+			finished = false;
+		else
+		{
+			pthread_mutex_unlock(&(philos[i].status));
+			i++;
+			continue ;
+		}
 		gettimeofday(&tp, NULL);
 		if (((tp.tv_sec) * 1000 + tp.tv_usec / 1000)
 			- ((philos[i].last_meal.tv_sec) * 1000
@@ -68,7 +78,10 @@ int	monitor(t_info info, t_philos *philos)
 		print_philos((philos[i]), "died");
 		set_philo_dead((philos[i]));
 	}
-	return (flag);
+	if(flag || finished)
+		return (1);
+	else
+		return (0);
 }
 
 void	destruct(const t_info info, pthread_t *thread, t_philos *philos,

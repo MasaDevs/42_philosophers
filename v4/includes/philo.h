@@ -51,5 +51,6 @@ int					get_num_of_eat(t_philos philo);
 void				set_philo_dead(t_philos philo);
 void				change_last_meal(t_philos *philo);
 void				print_philos(t_philos philo, char *str);
+void				set_finished(t_philos *philo);
 
 #endif

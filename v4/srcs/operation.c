@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
+/*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/17 17:15:45 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/19 09:36:35 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void	change_last_meal(t_philos *philo)
 	while (pthread_mutex_lock(&(philo->status)) != 0)
 		;
 	gettimeofday(&(philo->last_meal), NULL);
+	pthread_mutex_unlock(&(philo->status));
+}
+
+void	set_finished(t_philos *philo)
+{
+	while (pthread_mutex_lock(&(philo->status)) != 0)
+		;
+	philo->finished = true;
 	pthread_mutex_unlock(&(philo->status));
 }
 

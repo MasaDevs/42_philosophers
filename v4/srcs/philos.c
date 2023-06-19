@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
+/*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/18 17:25:13 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/19 09:43:36 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ void	odd_philo_meal(t_philos *philo)
 		xusleep(*philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
+		print_philos(*philo, "is sleeping");
+		xusleep(*philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
 			i++;
 		if(get_num_of_eat(*philo) == i)
 			break ;
-		print_philos(*philo, "is sleeping");
-		xusleep(*philo, philo->time_to_sleep * 1000);
 		print_philos(*philo, "is thinking");
 	}
-	set_philo_dead(*philo);
+	set_finished(philo);
 }
 
 void	even_philo_meal(t_philos *philo)
@@ -101,13 +101,13 @@ void	even_philo_meal(t_philos *philo)
 		xusleep(*philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
+		print_philos(*philo, "is sleeping");
+		xusleep(*philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
 			i++;
 		if(get_num_of_eat(*philo) == i)
 			break ;
-		print_philos(*philo, "is sleeping");
-		xusleep(*philo, philo->time_to_sleep * 1000);
 		print_philos(*philo, "is thinking");
 	}
-	set_philo_dead(*philo);
+	set_finished(philo);
 }
