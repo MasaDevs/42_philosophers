@@ -4,7 +4,10 @@ CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread
 SRCS	=	srcs/main.c \
 			srcs/info.c \
 			srcs/operation.c \
-			srcs/philos.c
+			srcs/philos.c \
+			srcs/err.c \
+			srcs/ft_isdigit.c \
+			srcs/atoi.c
 OBJS	=	${SRCS:.c=.o}
 all: ${NAME}
 

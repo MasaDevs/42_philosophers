@@ -3,30 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   info.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <masadevs@gmail.com>                 +#+  +:+       +#+        */
+/*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/18 16:46:40 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/20 09:17:19 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	set_info(t_info *info, int argc, char *argv[])
+bool	set_info(t_info *info, int argc, char *argv[])
 {
-	info->num_of_philos = atoi(argv[1]);
-	info->time_to_die = atoi(argv[2]);
-	info->time_to_eat = atoi(argv[3]);
-	info->time_to_sleep = atoi(argv[4]);
+	if(!is_all_digit(argc, argv))
+		return (false);
+	info->num_of_philos = ft_atoi(argv[1]);
+	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_eat = ft_atoi(argv[3]);
+	info->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		info->num_of_eat = atoi(argv[5]);
+		info->num_of_eat = ft_atoi(argv[5]);
 	else
 		info->num_of_eat = -1;
 	info->someone_dead = malloc(sizeof(bool));
 	if(info->someone_dead)
-		return (-1);
+		return (false);
 	*(info->someone_dead) = false;
-	return (1);
+	if (200 < info->num_of_philos)
+		return (false);
+	return (true);
 }
 
 pthread_mutex_t	*make_mutex(const t_info info)

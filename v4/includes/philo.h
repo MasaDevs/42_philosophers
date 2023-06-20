@@ -35,7 +35,7 @@ typedef struct s_info
 }					t_info;
 
 //info.c
-int					set_info(t_info *info, int argc, char *argv[]);
+bool				set_info(t_info *info, int argc, char *argv[]);
 pthread_mutex_t		*make_mutex(const t_info info);
 pthread_t			*make_thread(t_info info, t_philos *philos);
 void				*alloc(void *philos);
@@ -52,5 +52,15 @@ void				set_philo_dead(t_philos philo);
 void				change_last_meal(t_philos *philo);
 void				print_philos(t_philos philo, char *str);
 void				set_finished(t_philos *philo);
+
+//ft_digit
+int	ft_isdigit(int c);
+
+//ft_atoi
+int	ft_atoi(const char *str);
+
+//err
+bool	is_all_digit(char argc, char *argv[]);
+
 
 #endif
