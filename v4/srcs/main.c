@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 10:01:03 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:43:47 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	monitor(t_info info, t_philos *philos)
 	}
 	if (flag)
 	{
-		print_philos((philos[i]), "died");
 		set_philo_dead((philos[i]));
 	}
 	if(flag || finished)

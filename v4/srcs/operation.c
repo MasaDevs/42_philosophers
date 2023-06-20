@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/19 09:36:35 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:42:53 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ int	get_num_of_eat(t_philos philo)
 
 void	set_philo_dead(t_philos philo)
 {
+	struct timeval tp;
+
 	while (pthread_mutex_lock(philo.dead) != 0)
 		;
+	gettimeofday(&tp, NULL);
+	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
+			+ 1, "died");
 	*(philo.someone_dead) = true;
 	pthread_mutex_unlock(philo.dead);
 }
