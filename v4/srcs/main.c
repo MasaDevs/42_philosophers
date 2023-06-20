@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 09:31:04 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:01:03 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char *argv[])
 	set_info(&info, argc, argv);
 	mutex = make_mutex(info);
 	philos = make_philos(info, mutex, &dead);
-	thread = make_thread(info, philos);
+	thread = make_thread(info, philos, mutex);
 	while (1)
 		if (monitor(info, philos))
 			break ;

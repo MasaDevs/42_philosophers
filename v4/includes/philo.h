@@ -37,7 +37,7 @@ typedef struct s_info
 //info.c
 bool				set_info(t_info *info, int argc, char *argv[]);
 pthread_mutex_t		*make_mutex(const t_info info);
-pthread_t			*make_thread(t_info info, t_philos *philos);
+pthread_t			*make_thread(t_info info, t_philos *philos, pthread_mutex_t *mutex);
 void				*alloc(void *philos);
 
 //philos.c
@@ -64,7 +64,10 @@ int	ft_atoi(const char *str);
 
 //err
 bool	is_all_digit(char argc, char *argv[]);
-void	err_exit(char *str) ;
+void	err_exit(char *str);
+
+//free.c
+void	all_free(t_info info, pthread_mutex_t *mutex, t_philos *philos, pthread_t *thread);
 
 
 #endif

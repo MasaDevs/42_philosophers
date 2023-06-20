@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 09:45:58 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:02:04 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ pthread_mutex_t	*make_mutex(const t_info info)
 	return (mutex);
 }
 
-pthread_t	*make_thread(t_info info, t_philos *philos)
+pthread_t	*make_thread(t_info info, t_philos *philos, pthread_mutex_t *mutex)
 {
 	pthread_t	*thread;
 	int			i;
@@ -68,8 +68,7 @@ pthread_t	*make_thread(t_info info, t_philos *philos)
 	thread = malloc(sizeof(pthread_t) * info.num_of_philos);
 	if (!thread)
 	{
-		free(info.someone_dead);
-		free(philos);
+		all_free(info, mutex, philos, NULL);
 		err_exit("malloc error\n");
 	}
 	i = 0;
