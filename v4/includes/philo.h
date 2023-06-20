@@ -56,11 +56,15 @@ void				set_finished(t_philos *philo);
 //ft_digit
 int	ft_isdigit(int c);
 
+//ft_strlen
+size_t	ft_strlen(const char *str);
+
 //ft_atoi
 int	ft_atoi(const char *str);
 
 //err
 bool	is_all_digit(char argc, char *argv[]);
+void	err_exit(char *str) ;
 
 
 #endif

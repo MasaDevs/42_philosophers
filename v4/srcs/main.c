@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/19 11:21:57 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 09:31:04 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	pthread_t		*thread;
 
 	if (argc < 5 || 6 < argc)
-		return (0);
+		err_exit("the argument should 5 or 6\n");
 	pthread_mutex_init(&dead, NULL);
 	set_info(&info, argc, argv);
 	mutex = make_mutex(info);

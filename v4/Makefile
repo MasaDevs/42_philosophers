@@ -7,7 +7,8 @@ SRCS	=	srcs/main.c \
 			srcs/philos.c \
 			srcs/err.c \
 			srcs/ft_isdigit.c \
-			srcs/atoi.c
+			srcs/atoi.c \
+			srcs/ft_strlen.c
 OBJS	=	${SRCS:.c=.o}
 all: ${NAME}
 
