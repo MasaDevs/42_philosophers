@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 10:43:47 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:51:05 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main(int argc, char *argv[])
 	return (1);
 }
 
-
 int	monitor(t_info info, t_philos *philos)
 {
 	struct timeval	tp;
@@ -55,7 +54,7 @@ int	monitor(t_info info, t_philos *philos)
 	while (i < info.num_of_philos)
 	{
 		pthread_mutex_lock(&(philos[i].status));
-		if(!philos[i].finished)
+		if (!philos[i].finished)
 			finished = false;
 		else
 		{
@@ -77,7 +76,7 @@ int	monitor(t_info info, t_philos *philos)
 	{
 		set_philo_dead((philos[i]));
 	}
-	if(flag || finished)
+	if (flag || finished)
 		return (1);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 10:38:37 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:51:42 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	set_info(t_info *info, int argc, char *argv[])
 {
-	if(!is_all_digit(argc, argv))
+	if (!is_all_digit(argc, argv))
 		err_exit("the arguments should be number\n");
 	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
@@ -25,7 +25,7 @@ bool	set_info(t_info *info, int argc, char *argv[])
 	else
 		info->num_of_eat = -1;
 	info->someone_dead = malloc(sizeof(bool));
-	if(!info->someone_dead)
+	if (!info->someone_dead)
 		err_exit("malloc error\n");
 	*(info->someone_dead) = false;
 	if (200 < info->num_of_philos)
@@ -50,7 +50,7 @@ pthread_mutex_t	*make_mutex(const t_info info)
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		if(pthread_mutex_init(&(mutex[i]), NULL) != 0)
+		if (pthread_mutex_init(&(mutex[i]), NULL) != 0)
 		{
 			free(info.someone_dead);
 			err_exit("mutex error\n");

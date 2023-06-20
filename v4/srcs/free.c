@@ -1,12 +1,13 @@
 #include "../includes/philo.h"
 
-void	all_free(t_info info, pthread_mutex_t *mutex, t_philos *philos, pthread_t *thread)
+void	all_free(t_info info, pthread_mutex_t *mutex, t_philos *philos,
+		pthread_t *thread)
 {
 	free(info.someone_dead);
-	if(mutex)
+	if (mutex)
 		free(mutex);
-	if(thread)
+	if (thread)
 		free(thread);
-	if(philos)
+	if (philos)
 		free(philos);
 }

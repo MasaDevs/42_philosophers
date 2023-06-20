@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 10:42:53 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:51:52 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_num_of_eat(t_philos philo)
 
 void	set_philo_dead(t_philos philo)
 {
-	struct timeval tp;
+	struct timeval	tp;
 
 	while (pthread_mutex_lock(philo.dead) != 0)
 		;

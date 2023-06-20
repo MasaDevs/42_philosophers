@@ -6,13 +6,14 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 09:24:30 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:51:17 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex, pthread_mutex_t *dead)
+t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex,
+		pthread_mutex_t *dead)
 {
 	t_philos	*philos;
 	int			i;
@@ -77,7 +78,7 @@ void	odd_philo_meal(t_philos *philo)
 		xusleep(*philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
 			i++;
-		if(get_num_of_eat(*philo) == i)
+		if (get_num_of_eat(*philo) == i)
 			break ;
 		print_philos(*philo, "is thinking");
 	}
@@ -105,7 +106,7 @@ void	even_philo_meal(t_philos *philo)
 		xusleep(*philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
 			i++;
-		if(get_num_of_eat(*philo) == i)
+		if (get_num_of_eat(*philo) == i)
 			break ;
 		print_philos(*philo, "is thinking");
 	}
