@@ -70,7 +70,7 @@ bool				is_all_digit(char argc, char *argv[]);
 void				err_exit(char *str);
 
 //free.c
-void				all_free(t_info info, pthread_mutex_t *mutex,
+void				all_free(t_info *info, pthread_mutex_t *mutex,
 						t_philos *philos, pthread_t *thread);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 13:51:05 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/21 09:54:33 by masahito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int	main(int argc, char *argv[])
 		if (monitor(info, philos))
 			break ;
 	destruct(info, thread, philos, mutex);
-	free(thread);
-	free(philos);
-	free(mutex);
+	all_free(&info, mutex, philos, thread);
 	return (1);
 }
 
@@ -69,17 +67,13 @@ int	monitor(t_info info, t_philos *philos)
 			flag = 1;
 		pthread_mutex_unlock(&(philos[i].status));
 		if (flag)
+		{
+			set_philo_dead((philos[i]));
 			break ;
+		}
 		i++;
 	}
-	if (flag)
-	{
-		set_philo_dead((philos[i]));
-	}
-	if (flag || finished)
-		return (1);
-	else
-		return (0);
+	return (flag || finished);
 }
 
 void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
@@ -100,7 +94,6 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
 		pthread_mutex_destroy(&(philos[i].status));
 		i++;
 	}
-	free(info.someone_dead);
 }
 
 /*

@@ -68,13 +68,14 @@ pthread_t	*make_thread(t_info info, t_philos *philos, pthread_mutex_t *mutex)
 	thread = malloc(sizeof(pthread_t) * info.num_of_philos);
 	if (!thread)
 	{
-		all_free(info, mutex, philos, NULL);
+		all_free(&info, mutex, philos, NULL);
 		err_exit("malloc error\n");
 	}
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		pthread_create(&(thread[i]), NULL, alloc, (void *)&(philos[i]));
+		if(pthread_create(&(thread[i]), NULL, alloc, (void *)&(philos[i])) != 0)
+			err_exit("pthread_create() error");
 		i++;
 	}
 	return (thread);
