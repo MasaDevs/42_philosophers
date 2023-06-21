@@ -57,6 +57,19 @@ void	xusleep(t_philos philo, int time)
 		gettimeofday(&tp2, NULL);
 	}
 }
+
+void	only_one_philo(t_philos *philo)
+{
+	if (is_philo_dead(*philo))
+		return ;
+	pthread_mutex_lock(philo->left_hand);
+	print_philos(*philo, "has taken a fork");
+	while(!is_philo_dead(*philo))
+		;
+	pthread_mutex_unlock(philo->left_hand);
+	return ;
+}
+
 void	odd_philo_meal(t_philos *philo)
 {
 	int	i;

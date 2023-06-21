@@ -85,7 +85,9 @@ void	*alloc(void *philos)
 	t_philos	*philo;
 
 	philo = (t_philos *)philos;
-	if (philo->philos_id % 2)
+	if(philo->num_of_philos == 1)
+		only_one_philo(philo);
+	else if (philo->philos_id % 2)
 		odd_philo_meal(philo);
 	else
 		even_philo_meal(philo);
