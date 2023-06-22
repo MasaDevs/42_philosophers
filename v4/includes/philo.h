@@ -47,6 +47,7 @@ t_philos			*make_philos(const t_info info, pthread_mutex_t *mutex,
 void				only_one_philo(t_philos *philo);
 void				even_philo_meal(t_philos *philo);
 void				odd_philo_meal(t_philos *philo);
+void				only_one_philo(t_philos *philo);
 
 //operation
 bool				is_philo_dead(t_philos philo);
