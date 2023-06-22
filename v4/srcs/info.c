@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 09:38:17 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 10:18:08 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ pthread_t	*make_thread(t_info info, t_philos *philos, pthread_mutex_t *mutex)
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		if (pthread_create(&(thread[i]), NULL, alloc, (void *)&(philos[i])) != 0)
+		if (pthread_create(&(thread[i]), NULL, alloc,
+				(void *)&(philos[i])) != 0)
 			err_exit("pthread_create() error");
 		i++;
 	}

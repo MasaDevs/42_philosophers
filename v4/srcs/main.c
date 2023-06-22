@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 10:12:31 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 10:18:15 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	philo_status(t_info info, t_philos *philo, bool *finished)
 {
 	struct timeval	tp;
 	bool			flag;
-	
+
 	flag = false;
 	pthread_mutex_lock(&(philo->status));
 	if (!philo->finished)
@@ -54,9 +54,8 @@ bool	philo_status(t_info info, t_philos *philo, bool *finished)
 		return (flag);
 	}
 	gettimeofday(&tp, NULL);
-	if (((tp.tv_sec) * 1000 + tp.tv_usec / 1000)
-		- ((philo->last_meal.tv_sec) * 1000
-			+ (philo->last_meal.tv_usec) / 1000) > info.time_to_die)
+	if (((tp.tv_sec) * 1000 + tp.tv_usec / 1000) - ((philo->last_meal.tv_sec)
+			* 1000 + (philo->last_meal.tv_usec) / 1000) > info.time_to_die)
 		flag = true;
 	pthread_mutex_unlock(&(philo->status));
 	return (flag);
@@ -64,8 +63,8 @@ bool	philo_status(t_info info, t_philos *philo, bool *finished)
 
 int	monitor(t_info info, t_philos *philos)
 {
-	int				i;
-	bool			finished;
+	int		i;
+	bool	finished;
 
 	i = 0;
 	finished = true;
@@ -74,7 +73,7 @@ int	monitor(t_info info, t_philos *philos)
 		if (philo_status(info, &(philos[i]), &finished))
 		{
 			set_philo_dead((philos[i]));
-			return (1) ;
+			return (1);
 		}
 		i++;
 	}
@@ -103,6 +102,7 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
 
 /*
 #include <libc.h>
+
 __attribute__((destructor))
 static void	destructor(void) {
     system("leaks -q philo");
