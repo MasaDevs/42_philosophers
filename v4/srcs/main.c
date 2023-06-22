@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/21 09:54:33 by masahito         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:12:31 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,46 @@ int	main(int argc, char *argv[])
 	return (1);
 }
 
-int	monitor(t_info info, t_philos *philos)
+bool	philo_status(t_info info, t_philos *philo, bool *finished)
 {
 	struct timeval	tp;
-	int				flag;
+	bool			flag;
+	
+	flag = false;
+	pthread_mutex_lock(&(philo->status));
+	if (!philo->finished)
+		(*finished) = false;
+	else
+	{
+		pthread_mutex_unlock(&(philo->status));
+		return (flag);
+	}
+	gettimeofday(&tp, NULL);
+	if (((tp.tv_sec) * 1000 + tp.tv_usec / 1000)
+		- ((philo->last_meal.tv_sec) * 1000
+			+ (philo->last_meal.tv_usec) / 1000) > info.time_to_die)
+		flag = true;
+	pthread_mutex_unlock(&(philo->status));
+	return (flag);
+}
+
+int	monitor(t_info info, t_philos *philos)
+{
 	int				i;
 	bool			finished;
 
-	flag = 0;
 	i = 0;
 	finished = true;
 	while (i < info.num_of_philos)
 	{
-		pthread_mutex_lock(&(philos[i].status));
-		if (!philos[i].finished)
-			finished = false;
-		else
-		{
-			pthread_mutex_unlock(&(philos[i].status));
-			i++;
-			continue ;
-		}
-		gettimeofday(&tp, NULL);
-		if (((tp.tv_sec) * 1000 + tp.tv_usec / 1000)
-			- ((philos[i].last_meal.tv_sec) * 1000
-				+ (philos[i].last_meal.tv_usec) / 1000) > info.time_to_die)
-			flag = 1;
-		pthread_mutex_unlock(&(philos[i].status));
-		if (flag)
+		if (philo_status(info, &(philos[i]), &finished))
 		{
 			set_philo_dead((philos[i]));
-			break ;
+			return (1) ;
 		}
 		i++;
 	}
-	return (flag || finished);
+	return (finished);
 }
 
 void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
@@ -98,13 +103,8 @@ void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
 
 /*
 #include <libc.h>
-
 __attribute__((destructor))
 static void	destructor(void) {
-    system("leaks -q a.out");
+    system("leaks -q philo");
 }
 */
-//malloc
-//mutex
-//thread
-//philos
