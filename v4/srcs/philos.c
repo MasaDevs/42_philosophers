@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 10:31:39 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 10:56:47 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void	even_philo_meal(t_philos *philo)
 		print_philos(*philo, "is eating");
 		change_last_meal(philo);
 		xusleep(*philo, philo->time_to_eat * 1000);
-		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
+		pthread_mutex_unlock(philo->right_hand);
 		print_philos(*philo, "is sleeping");
 		xusleep(*philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
