@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 10:56:47 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 15:34:24 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	odd_philo_meal(t_philos *philo)
 		if (get_num_of_eat(*philo) == i)
 			break ;
 		print_philos(*philo, "is thinking");
+		usleep(299);
 	}
 	set_finished(philo);
 }
@@ -122,6 +123,7 @@ void	even_philo_meal(t_philos *philo)
 		if (get_num_of_eat(*philo) == i)
 			break ;
 		print_philos(*philo, "is thinking");
+		usleep(299);
 	}
 	set_finished(philo);
 }
