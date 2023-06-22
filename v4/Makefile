@@ -5,6 +5,7 @@ SRCS	=	srcs/main.c \
 			srcs/info.c \
 			srcs/operation.c \
 			srcs/philos.c \
+			srcs/print.c \
 			srcs/err.c \
 			srcs/ft_isdigit.c \
 			srcs/ft_atoi.c \

@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 10:11:38 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 10:31:39 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	xusleep(t_philos philo, int time)
 	gettimeofday(&tp1, NULL);
 	gettimeofday(&tp2, NULL);
 	while ((tp2.tv_sec * 1000000 + tp2.tv_usec) - (tp1.tv_sec * 1000000
-			+ tp1.tv_usec) < time)
+			+ tp1.tv_usec) + 100 < time)
 	{
 		if (is_philo_dead(philo))
 			break ;
