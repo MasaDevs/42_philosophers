@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masahito <masahito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/20 13:51:52 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 09:38:42 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	set_philo_dead(t_philos philo)
 		;
 	gettimeofday(&tp, NULL);
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
-			+ 1, "died");
+		+ 1, "died");
 	*(philo.someone_dead) = true;
 	pthread_mutex_unlock(philo.dead);
 }
@@ -75,5 +75,5 @@ void	print_philos(t_philos philo, char *str)
 		return ;
 	gettimeofday(&tp, NULL);
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
-			+ 1, str);
+		+ 1, str);
 }

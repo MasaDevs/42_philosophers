@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 09:35:06 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 09:39:00 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	only_one_philo(t_philos *philo)
 		return ;
 	pthread_mutex_lock(philo->left_hand);
 	print_philos(*philo, "has taken a fork");
-	while(!is_philo_dead(*philo))
+	while (!is_philo_dead(*philo))
 		;
 	pthread_mutex_unlock(philo->left_hand);
 	return ;
