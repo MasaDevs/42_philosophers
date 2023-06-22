@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 10:21:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 10:22:42 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 18:50:04 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	print_philos(t_philos philo, char *str)
 	struct timeval	tp;
 	bool			dead;
 
-	while (pthread_mutex_lock(philo.dead) != 0)
-		;
+	pthread_mutex_lock(philo.dead);
 	dead = *(philo.someone_dead);
 	pthread_mutex_unlock(philo.dead);
 	if (dead)

@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 10:18:15 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/22 18:34:41 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	monitor(t_info info, t_philos *philos)
 		}
 		i++;
 	}
+	usleep(500);
 	return (finished);
 }
 
