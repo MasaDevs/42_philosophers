@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 18:34:41 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/24 03:22:41 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	main(int argc, char *argv[])
 	pthread_mutex_t	*mutex;
 	pthread_t		*thread;
 
-	if (argc < 5 || 6 < argc)
-		err_exit("the argument should 5 or 6\n");
+	if (!is_arg_correct(argc, argv))
+		return (1);
 	pthread_mutex_init(&dead, NULL);
 	set_info(&info, argc, argv);
 	mutex = make_mutex(info);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:40:46 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 09:40:47 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/24 03:23:14 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void				set_finished(t_philos *philo);
 
 //ft_digit
 int					ft_isdigit(int c);
+bool				is_all_digit(char argc, char *argv[]);
 
 //ft_strlen
 size_t				ft_strlen(const char *str);
@@ -79,7 +80,7 @@ size_t				ft_strlen(const char *str);
 int					ft_atoi(const char *str);
 
 //err
-bool				is_all_digit(char argc, char *argv[]);
+bool				is_arg_correct(int argc, char *argv[]);
 void				err_exit(char *str);
 
 //free.c

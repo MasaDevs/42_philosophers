@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 15:29:42 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 03:22:05 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 bool	set_info(t_info *info, int argc, char *argv[])
 {
-	if (!is_all_digit(argc, argv))
-		err_exit("the arguments should be number\n");
 	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
