@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 03:29:24 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 04:14:38 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ pthread_mutex_t	*make_mutex(const t_info info)
 	if (!mutex)
 	{
 		free(info.someone_dead);
-		err_exit("malloc error\n");
+		err_message("malloc error\n");
+		return (NULL);
 	}
 	i = 0;
 	while (i < info.num_of_philos)
@@ -54,7 +55,9 @@ pthread_mutex_t	*make_mutex(const t_info info)
 		if (pthread_mutex_init(&(mutex[i]), NULL) != 0)
 		{
 			free(info.someone_dead);
-			err_exit("mutex error\n");
+			free(mutex);
+			err_message("mutex error\n");
+			return (NULL);
 		}
 		i++;
 	}
@@ -66,18 +69,25 @@ pthread_t	*make_thread(t_info info, t_philos *philos, pthread_mutex_t *mutex)
 	pthread_t	*thread;
 	int			i;
 
+	if (!philos)
+		return (NULL);
 	thread = malloc(sizeof(pthread_t) * info.num_of_philos);
 	if (!thread)
 	{
 		all_free(&info, mutex, philos, NULL);
-		err_exit("malloc error\n");
+		err_message("malloc error\n");
+		return (NULL);
 	}
 	i = 0;
 	while (i < info.num_of_philos)
 	{
 		if (pthread_create(&(thread[i]), NULL, alloc,
 				(void *)&(philos[i])) != 0)
-			err_exit("pthread_create() error");
+		{
+			thread_detach(thread, i);
+			err_message("pthread_create() error");
+			return (NULL);
+		}
 		i++;
 	}
 	return (thread);

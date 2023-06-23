@@ -6,14 +6,14 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 03:29:43 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 04:11:53 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 int			monitor(t_info info, t_philos *philos);
-void		destruct(const t_info info, pthread_t *thread, t_philos *philos,
+void		destruct(t_info *info, pthread_t *thread, t_philos *philos,
 				pthread_mutex_t *mutex);
 
 int	main(int argc, char *argv[])
@@ -27,15 +27,21 @@ int	main(int argc, char *argv[])
 	if (!is_arg_correct(argc, argv) || !set_info(&info, argc, argv))
 		return (1);
 	mutex = make_mutex(info);
+	if (!mutex)
+		return (1);
 	pthread_mutex_init(&dead, NULL);
 	philos = make_philos(info, mutex, &dead);
 	thread = make_thread(info, philos, mutex);
+	if (!philos || !thread)
+	{
+		all_free(&info, mutex, philos, thread);
+		return (1);
+	}
 	while (1)
 		if (monitor(info, philos))
 			break ;
-	destruct(info, thread, philos, mutex);
-	all_free(&info, mutex, philos, thread);
-	return (1);
+	destruct(&info, thread, philos, mutex);
+	return (0);
 }
 
 bool	philo_status(t_info info, t_philos *philo, bool *finished)
@@ -80,24 +86,25 @@ int	monitor(t_info info, t_philos *philos)
 	return (finished);
 }
 
-void	destruct(const t_info info, pthread_t *thread, t_philos *philos,
+void	destruct(t_info *info, pthread_t *thread, t_philos *philos,
 		pthread_mutex_t *mutex)
 {
 	int	i;
 
 	i = 0;
-	while (i < info.num_of_philos)
+	while (i < info->num_of_philos)
 	{
 		pthread_join(thread[i], NULL);
 		i++;
 	}
 	i = 0;
-	while (i < info.num_of_philos)
+	while (i < info->num_of_philos)
 	{
 		pthread_mutex_destroy(&(mutex[i]));
 		pthread_mutex_destroy(&(philos[i].status));
 		i++;
 	}
+	all_free(info, mutex, philos, thread);
 }
 
 /*

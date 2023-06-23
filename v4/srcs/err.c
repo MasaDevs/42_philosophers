@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:39:54 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 03:31:27 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 04:07:51 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ bool	is_arg_correct(int argc, char *argv[])
 		return (false);
 	}
 	return (true);
+}
+
+void	thread_detach(pthread_t *thread, int len)
+{
+	int		i;
+
+	i = 0;
+	while (i < len)
+	{
+		pthread_detach(thread[i]);
+		i++;
+	}
 }
 
 void	err_exit(char *str)

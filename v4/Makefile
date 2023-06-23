@@ -1,6 +1,6 @@
 NAME	=	philo
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address
 SRCS	=	srcs/main.c \
 			srcs/info.c \
 			srcs/operation.c \

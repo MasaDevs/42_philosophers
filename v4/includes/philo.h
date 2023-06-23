@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:40:46 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 03:30:43 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 04:08:13 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int					ft_atoi(const char *str);
 //err
 bool				is_arg_correct(int argc, char *argv[]);
 bool				err_message(char *str);
+void				thread_detach(pthread_t *thread, int len);
 void				err_exit(char *str);
 
 //free.c
