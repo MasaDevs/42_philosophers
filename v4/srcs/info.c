@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 04:14:38 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 04:24:55 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,7 @@ pthread_mutex_t	*make_mutex(const t_info info)
 	i = 0;
 	while (i < info.num_of_philos)
 	{
-		if (pthread_mutex_init(&(mutex[i]), NULL) != 0)
-		{
-			free(info.someone_dead);
-			free(mutex);
-			err_message("mutex error\n");
-			return (NULL);
-		}
+		pthread_mutex_init(&(mutex[i]), NULL);
 		i++;
 	}
 	return (mutex);
