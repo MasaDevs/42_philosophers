@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 03:22:05 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 03:29:24 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@ bool	set_info(t_info *info, int argc, char *argv[])
 		info->num_of_eat = ft_atoi(argv[5]);
 	else
 		info->num_of_eat = -1;
-	info->someone_dead = malloc(sizeof(bool));
-	if (!info->someone_dead)
-		err_exit("malloc error\n");
-	*(info->someone_dead) = false;
 	if (200 < info->num_of_philos)
 	{
-		free(info->someone_dead);
-		err_exit("the num of philos must be under 200\n");
+		err_message("the num of philos must be under 200\n");
+		return (false);
 	}
+	info->someone_dead = malloc(sizeof(bool));
+	if (!info->someone_dead)
+	{
+		err_message("malloc error\n");
+		return (false);
+	}
+	*(info->someone_dead) = false;
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 03:22:41 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 03:29:43 by masahitoara      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ int	main(int argc, char *argv[])
 	pthread_mutex_t	*mutex;
 	pthread_t		*thread;
 
-	if (!is_arg_correct(argc, argv))
+	if (!is_arg_correct(argc, argv) || !set_info(&info, argc, argv))
 		return (1);
-	pthread_mutex_init(&dead, NULL);
-	set_info(&info, argc, argv);
 	mutex = make_mutex(info);
+	pthread_mutex_init(&dead, NULL);
 	philos = make_philos(info, mutex, &dead);
 	thread = make_thread(info, philos, mutex);
 	while (1)
