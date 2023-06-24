@@ -1,3 +1,23 @@
 NAME	=	philo
+CC		=	gcc
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread
+SRCS	=	srcs/main.c \
+			srcs/info.c \
+			srcs/operation.c \
+			srcs/philos.c \
+			srcs/print.c \
+			srcs/err.c \
+			srcs/ft_isdigit.c \
+			srcs/ft_atoi.c \
+			srcs/ft_strlen.c \
+			srcs/free.c
+OBJS	=	${SRCS:.c=.o}
+all: ${NAME}
 
-SRCS	=	
+${NAME}: ${OBJS}
+	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+clean:
+	rm -f ${OBJS}
+fclean: clean
+	rm -f ${NAME}
+re: fclean all
