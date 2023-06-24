@@ -6,7 +6,7 @@
 /*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 04:11:53 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/24 14:34:12 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,10 @@ void	destruct(t_info *info, pthread_t *thread, t_philos *philos,
 	all_free(info, mutex, philos, thread);
 }
 
-/*
 #include <libc.h>
 
 __attribute__((destructor))
 static void	destructor(void) {
     system("leaks -q philo");
 }
-*/
+

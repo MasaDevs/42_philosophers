@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 18:32:07 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/24 14:33:25 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ bool	is_philo_dead(t_philos philo)
 	bool	flag;
 
 	flag = false;
-	while (pthread_mutex_lock(philo.dead) != 0)
-		;
+	pthread_mutex_lock(philo.dead);
 	if (*(philo.someone_dead))
 		flag = true;
 	pthread_mutex_unlock(philo.dead);
@@ -37,8 +36,7 @@ void	set_philo_dead(t_philos philo)
 {
 	struct timeval	tp;
 
-	while (pthread_mutex_lock(philo.dead) != 0)
-		;
+	pthread_mutex_lock(philo.dead);
 	*(philo.someone_dead) = true;
 	pthread_mutex_unlock(philo.dead);
 	usleep(2000);
@@ -49,16 +47,14 @@ void	set_philo_dead(t_philos philo)
 
 void	change_last_meal(t_philos *philo)
 {
-	while (pthread_mutex_lock(&(philo->status)) != 0)
-		;
+	pthread_mutex_lock(&(philo->status));
 	gettimeofday(&(philo->last_meal), NULL);
 	pthread_mutex_unlock(&(philo->status));
 }
 
 void	set_finished(t_philos *philo)
 {
-	while (pthread_mutex_lock(&(philo->status)) != 0)
-		;
+	pthread_mutex_lock(&(philo->status));
 	philo->finished = true;
 	pthread_mutex_unlock(&(philo->status));
 }
