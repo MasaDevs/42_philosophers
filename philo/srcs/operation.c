@@ -6,11 +6,11 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/25 03:02:23 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 bool	is_philo_dead(t_philos philo)
 {

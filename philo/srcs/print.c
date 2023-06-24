@@ -6,11 +6,11 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 10:21:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 18:50:04 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 void	print_philos(t_philos philo, char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 18:41:53 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex,
 		pthread_mutex_t *dead)

@@ -6,11 +6,11 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:40:03 by marai             #+#    #+#             */
-/*   Updated: 2023/06/22 09:40:04 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 #include <limits.h>
 
 static int	ft_check_over(int sign, unsigned long ans, char c)
