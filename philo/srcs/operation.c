@@ -38,18 +38,22 @@ void	set_philo_dead(t_philos philo)
 
 	pthread_mutex_lock(philo.dead);
 	*(philo.someone_dead) = true;
-	pthread_mutex_unlock(philo.dead);
 	usleep(2000);
 	gettimeofday(&tp, NULL);
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
 		+ 1, "died");
+	pthread_mutex_unlock(philo.dead);
 }
 
 void	change_last_meal(t_philos *philo)
 {
+	struct timeval	tp;
+
+	gettimeofday(&tp, NULL);
 	pthread_mutex_lock(&(philo->status));
-	gettimeofday(&(philo->last_meal), NULL);
+	philo->last_meal = tp;
 	pthread_mutex_unlock(&(philo->status));
+	print_philos_eat(*philo, "is eating", tp);
 }
 
 void	set_finished(t_philos *philo)

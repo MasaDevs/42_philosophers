@@ -82,7 +82,6 @@ void	odd_philo_meal(t_philos *philo)
 		pthread_mutex_lock(philo->right_hand);
 		print_philos(*philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_hand);
-		print_philos(*philo, "is eating");
 		change_last_meal(philo);
 		xusleep(*philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->right_hand);
@@ -94,7 +93,7 @@ void	odd_philo_meal(t_philos *philo)
 		if (get_num_of_eat(*philo) == i)
 			break ;
 		print_philos(*philo, "is thinking");
-		usleep(100);
+		usleep(200);
 	}
 	set_finished(philo);
 }
@@ -111,7 +110,6 @@ void	even_philo_meal(t_philos *philo)
 		pthread_mutex_lock(philo->left_hand);
 		print_philos(*philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_hand);
-		print_philos(*philo, "is eating");
 		change_last_meal(philo);
 		xusleep(*philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->left_hand);
@@ -123,7 +121,7 @@ void	even_philo_meal(t_philos *philo)
 		if (get_num_of_eat(*philo) == i)
 			break ;
 		print_philos(*philo, "is thinking");
-		usleep(100);
+		usleep(200);
 	}
 	set_finished(philo);
 }

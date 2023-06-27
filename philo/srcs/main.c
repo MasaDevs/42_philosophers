@@ -40,8 +40,8 @@ int	main(int argc, char *argv[])
 	while (1)
 		if (monitor(info, philos))
 			break ;
-	pthread_mutex_destroy(&dead);
 	destruct(&info, thread, philos, mutex);
+	pthread_mutex_destroy(&dead);
 	return (0);
 }
 
