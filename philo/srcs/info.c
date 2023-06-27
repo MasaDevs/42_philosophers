@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 05:40:18 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 07:58:16 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,17 @@ pthread_t	*make_thread(t_info info, t_philos *philos, pthread_mutex_t *mutex)
 void	*alloc(void *philos)
 {
 	t_philos	*philo;
+	int			num_of_philos;
+	int			philos_id;	
 
 	philo = (t_philos *)philos;
-	if (philo->num_of_philos == 1)
+	pthread_mutex_lock(&(philo->status));
+	num_of_philos = philo->num_of_philos;
+	philos_id = philo->philos_id;
+	pthread_mutex_unlock(&(philo->status));
+;	if (num_of_philos == 1)
 		only_one_philo(philo);
-	else if (philo->philos_id % 2)
+	else if (philos_id % 2)
 	{
 		usleep(200);
 		odd_philo_meal(philo);
