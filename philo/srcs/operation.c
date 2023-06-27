@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 05:53:23 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	set_philo_dead(t_philos philo)
 
 	pthread_mutex_lock(philo.dead);
 	*(philo.someone_dead) = true;
-	usleep(2000);
 	gettimeofday(&tp, NULL);
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
 		+ 1, "died");

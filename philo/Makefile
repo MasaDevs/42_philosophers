@@ -4,6 +4,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 INCLUDE	=	-I ./includes
 SRCS	=	srcs/main.c \
 			srcs/info.c \
+			srcs/monitor.c \
 			srcs/print.c \
 			srcs/operation.c \
 			srcs/philos.c \
