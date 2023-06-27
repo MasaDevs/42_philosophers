@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 07:19:49 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 08:22:48 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	odd_philo_meal(t_philos *philo)
 	int	i;
 
 	i = 0;
-	while (i < get_num_of_eat(*philo) || get_num_of_eat(*philo) < 0)
+	while (i < get_num_of_eat(philo) || get_num_of_eat(philo) < 0)
 	{
 		if (is_philo_dead(philo))
 			return ;
@@ -88,9 +88,9 @@ void	odd_philo_meal(t_philos *philo)
 		pthread_mutex_unlock(philo->left_hand);
 		print_philos(philo, "is sleeping");
 		xusleep(philo, philo->time_to_sleep * 1000);
-		if (0 < get_num_of_eat(*philo))
+		if (0 < get_num_of_eat(philo))
 			i++;
-		if (get_num_of_eat(*philo) == i)
+		if (get_num_of_eat(philo) == i)
 			break ;
 		print_philos(philo, "is thinking");
 		usleep(200);
@@ -103,7 +103,7 @@ void	even_philo_meal(t_philos *philo)
 	int	i;
 
 	i = 0;
-	while (i < get_num_of_eat(*philo) || get_num_of_eat(*philo) < 0)
+	while (i < get_num_of_eat(philo) || get_num_of_eat(philo) < 0)
 	{
 		if (is_philo_dead(philo))
 			return ;
@@ -116,9 +116,9 @@ void	even_philo_meal(t_philos *philo)
 		pthread_mutex_unlock(philo->right_hand);
 		print_philos(philo, "is sleeping");
 		xusleep(philo, philo->time_to_sleep * 1000);
-		if (0 < get_num_of_eat(*philo))
+		if (0 < get_num_of_eat(philo))
 			i++;
-		if (get_num_of_eat(*philo) == i)
+		if (get_num_of_eat(philo) == i)
 			break ;
 		print_philos(philo, "is thinking");
 		usleep(200);

@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:40:46 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 07:18:34 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 08:21:10 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				only_one_philo(t_philos *philo);
 
 //operation
 bool				is_philo_dead(t_philos *philo);
-int					get_num_of_eat(t_philos philo);
+int					get_num_of_eat(t_philos *philo);
 void				set_philo_dead(t_philos *philo);
 void				change_last_meal(t_philos *philo);
 void				set_finished(t_philos *philo);

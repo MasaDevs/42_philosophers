@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:44 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 07:19:30 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 08:22:02 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ bool	is_philo_dead(t_philos *philo)
 	return (flag);
 }
 
-int	get_num_of_eat(t_philos philo)
+int	get_num_of_eat(t_philos *philo)
 {
 	int	num_of_eat;
 
-	num_of_eat = philo.num_of_eat;
+	pthread_mutex_lock(&(philo->status));
+	num_of_eat = philo->num_of_eat;
+	pthread_mutex_unlock(&(philo->status));
 	return (num_of_eat);
 }
 
