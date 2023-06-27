@@ -89,7 +89,10 @@ void	*alloc(void *philos)
 	if (philo->num_of_philos == 1)
 		only_one_philo(philo);
 	else if (philo->philos_id % 2)
+	{
+		usleep(200);
 		odd_philo_meal(philo);
+	}
 	else
 		even_philo_meal(philo);
 	return (NULL);

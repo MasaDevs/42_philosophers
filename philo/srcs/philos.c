@@ -46,14 +46,14 @@ void	xusleep(t_philos philo, int time)
 	struct timeval	tp1;
 	struct timeval	tp2;
 
+	if (is_philo_dead(philo))
+		return ;
 	gettimeofday(&tp1, NULL);
 	gettimeofday(&tp2, NULL);
 	while ((tp2.tv_sec * 1000000 + tp2.tv_usec) - (tp1.tv_sec * 1000000
-			+ tp1.tv_usec) + 100 < time)
+			+ tp1.tv_usec) < time)
 	{
-		if (is_philo_dead(philo))
-			break ;
-		usleep(10);
+		usleep(100);
 		gettimeofday(&tp2, NULL);
 	}
 }
