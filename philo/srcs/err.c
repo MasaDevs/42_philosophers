@@ -32,20 +32,8 @@ bool	is_arg_correct(int argc, char *argv[])
 	}
 	if (!is_all_digit(argc, argv))
 	{
-		err_message("the arguments should be number\n");
+		err_message("the arguments should be positive number\n");
 		return (false);
 	}
 	return (true);
-}
-
-void	thread_detach(pthread_t *thread, int len)
-{
-	int		i;
-
-	i = 0;
-	while (i < len)
-	{
-		pthread_detach(thread[i]);
-		i++;
-	}
 }

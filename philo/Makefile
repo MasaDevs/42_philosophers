@@ -1,6 +1,6 @@
 NAME	=	philo
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror 
+CFLAGS	=	-Wall -Wextra -Werror
 INCLUDE	=	-I ./includes
 SRCS	=	srcs/main.c \
 			srcs/info.c \

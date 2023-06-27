@@ -17,12 +17,15 @@ void	print_philos(t_philos philo, char *str)
 	struct timeval	tp;
 	bool			dead;
 
+	gettimeofday(&tp, NULL);
 	pthread_mutex_lock(philo.dead);
 	dead = *(philo.someone_dead);
-	pthread_mutex_unlock(philo.dead);
 	if (dead)
+	{
+		pthread_mutex_unlock(philo.dead);
 		return ;
-	gettimeofday(&tp, NULL);
+	}
 	printf("%ld %d %s\n", tp.tv_sec * 1000 + tp.tv_usec / 1000, philo.philos_id
 		+ 1, str);
+	pthread_mutex_unlock(philo.dead);
 }

@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:36 by marai             #+#    #+#             */
-/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 03:43:24 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char *argv[])
 	while (1)
 		if (monitor(info, philos))
 			break ;
+	pthread_mutex_destroy(&dead);
 	destruct(&info, thread, philos, mutex);
 	return (0);
 }
@@ -82,7 +83,7 @@ int	monitor(t_info info, t_philos *philos)
 		}
 		i++;
 	}
-	usleep(500);
+	usleep(300);
 	return (finished);
 }
 
