@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:15:58 by marai             #+#    #+#             */
-/*   Updated: 2023/06/25 03:16:53 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 07:19:49 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_philos	*make_philos(const t_info info, pthread_mutex_t *mutex,
 	return (philos);
 }
 
-void	xusleep(t_philos philo, int time)
+void	xusleep(t_philos *philo, int time)
 {
 	struct timeval	tp1;
 	struct timeval	tp2;
@@ -60,11 +60,11 @@ void	xusleep(t_philos philo, int time)
 
 void	only_one_philo(t_philos *philo)
 {
-	if (is_philo_dead(*philo))
+	if (is_philo_dead(philo))
 		return ;
 	pthread_mutex_lock(philo->left_hand);
-	print_philos(*philo, "has taken a fork");
-	while (!is_philo_dead(*philo))
+	print_philos(philo, "has taken a fork");
+	while (!is_philo_dead(philo))
 		;
 	pthread_mutex_unlock(philo->left_hand);
 	return ;
@@ -77,22 +77,22 @@ void	odd_philo_meal(t_philos *philo)
 	i = 0;
 	while (i < get_num_of_eat(*philo) || get_num_of_eat(*philo) < 0)
 	{
-		if (is_philo_dead(*philo))
+		if (is_philo_dead(philo))
 			return ;
 		pthread_mutex_lock(philo->right_hand);
-		print_philos(*philo, "has taken a fork");
+		print_philos(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_hand);
 		change_last_meal(philo);
-		xusleep(*philo, philo->time_to_eat * 1000);
+		xusleep(philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->right_hand);
 		pthread_mutex_unlock(philo->left_hand);
-		print_philos(*philo, "is sleeping");
-		xusleep(*philo, philo->time_to_sleep * 1000);
+		print_philos(philo, "is sleeping");
+		xusleep(philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
 			i++;
 		if (get_num_of_eat(*philo) == i)
 			break ;
-		print_philos(*philo, "is thinking");
+		print_philos(philo, "is thinking");
 		usleep(200);
 	}
 	set_finished(philo);
@@ -105,22 +105,22 @@ void	even_philo_meal(t_philos *philo)
 	i = 0;
 	while (i < get_num_of_eat(*philo) || get_num_of_eat(*philo) < 0)
 	{
-		if (is_philo_dead(*philo))
+		if (is_philo_dead(philo))
 			return ;
 		pthread_mutex_lock(philo->left_hand);
-		print_philos(*philo, "has taken a fork");
+		print_philos(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_hand);
 		change_last_meal(philo);
-		xusleep(*philo, philo->time_to_eat * 1000);
+		xusleep(philo, philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->left_hand);
 		pthread_mutex_unlock(philo->right_hand);
-		print_philos(*philo, "is sleeping");
-		xusleep(*philo, philo->time_to_sleep * 1000);
+		print_philos(philo, "is sleeping");
+		xusleep(philo, philo->time_to_sleep * 1000);
 		if (0 < get_num_of_eat(*philo))
 			i++;
 		if (get_num_of_eat(*philo) == i)
 			break ;
-		print_philos(*philo, "is thinking");
+		print_philos(philo, "is thinking");
 		usleep(200);
 	}
 	set_finished(philo);

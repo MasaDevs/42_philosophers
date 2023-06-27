@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masahitoarai <masahitoarai@student.42.f    +#+  +:+       +#+        */
+/*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:40:46 by marai             #+#    #+#             */
-/*   Updated: 2023/06/24 04:08:13 by masahitoara      ###   ########.fr       */
+/*   Updated: 2023/06/28 07:18:34 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ void				odd_philo_meal(t_philos *philo);
 void				only_one_philo(t_philos *philo);
 
 //operation
-bool				is_philo_dead(t_philos philo);
+bool				is_philo_dead(t_philos *philo);
 int					get_num_of_eat(t_philos philo);
-void				set_philo_dead(t_philos philo);
+void				set_philo_dead(t_philos *philo);
 void				change_last_meal(t_philos *philo);
 void				set_finished(t_philos *philo);
 
 //print.c
-void				print_philos(t_philos philo, char *str);
-void				print_philos_eat(t_philos philo, char *str, \
+void				print_philos(t_philos *philo, char *str);
+void				print_philos_eat(t_philos *philo, char *str, \
 						struct timeval tp);
 
 //ft_digit

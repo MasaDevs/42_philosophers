@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 05:35:39 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 05:40:10 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 07:17:40 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	monitor(t_info info, t_philos *philos)
 	{
 		if (philo_status(info, &(philos[i]), &finished))
 		{
-			set_philo_dead((philos[i]));
+			set_philo_dead(&(philos[i]));
 			return (1);
 		}
 		i++;
