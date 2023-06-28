@@ -6,11 +6,26 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 10:34:16 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 12:15:10 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static bool	is_info_proper(t_info *info)
+{
+	if (200 < info->num_of_philos || info->num_of_philo < 0)
+	{
+		err_message("the num of philos should be 0 ~ 200\n");
+		return (false);
+	}
+	if (info->time_to_eat <= 0 || info->time_to_sleep <= 0)
+	{
+		err_message("time_to_eat and time_to_sleep should be more than 0\n");
+		return (false);
+	}
+	return (true);
+}
 
 bool	set_info(t_info *info, int argc, char *argv[])
 {
@@ -22,11 +37,8 @@ bool	set_info(t_info *info, int argc, char *argv[])
 		info->num_of_eat = ft_atoi(argv[5]);
 	else
 		info->num_of_eat = -1;
-	if (200 < info->num_of_philos)
-	{
-		err_message("the num of philos must be under 200\n");
+	if (!is_info_proper(info))
 		return (false);
-	}
 	info->someone_dead = malloc(sizeof(bool));
 	if (!info->someone_dead)
 	{
@@ -85,7 +97,7 @@ void	*alloc(void *philos)
 {
 	t_philos	*philo;
 	int			num_of_philos;
-	int			philos_id;	
+	int			philos_id;
 
 	philo = (t_philos *)philos;
 	pthread_mutex_lock(&(philo->status));
