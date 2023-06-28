@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 12:15:10 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 12:15:54 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_info_proper(t_info *info)
 {
-	if (200 < info->num_of_philos || info->num_of_philo < 0)
+	if (200 < info->num_of_philos || info->num_of_philos < 0)
 	{
 		err_message("the num of philos should be 0 ~ 200\n");
 		return (false);
