@@ -6,13 +6,13 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 05:35:39 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 07:17:40 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 10:35:02 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool philo_status(t_info info, t_philos *philo, bool *finished)
+static bool	philo_status(t_info info, t_philos *philo, bool *finished)
 {
 	struct timeval	tp;
 	bool			flag;

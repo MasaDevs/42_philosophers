@@ -6,7 +6,7 @@
 /*   By: marai <marai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:16:13 by marai             #+#    #+#             */
-/*   Updated: 2023/06/28 07:58:16 by marai            ###   ########.fr       */
+/*   Updated: 2023/06/28 10:34:16 by marai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	*alloc(void *philos)
 	num_of_philos = philo->num_of_philos;
 	philos_id = philo->philos_id;
 	pthread_mutex_unlock(&(philo->status));
-;	if (num_of_philos == 1)
+	if (num_of_philos == 1)
 		only_one_philo(philo);
 	else if (philos_id % 2)
 	{
